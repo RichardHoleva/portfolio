@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.intro-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background-color:   #0B1012;
+  overflow: hidden;
+}
+
+.intro-title {
+  font-size: clamp(2.6rem, 14vw, 10rem);
+  word-break: break-word;
+  font-weight: bold;
+  letter-spacing: -8px;
+  color: white;
+  text-align: center;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  position: relative;
+  display: inline-block;
+}
+
+.intro-letter {
+  display: inline-block;
+  position: relative;
+}
+
+.moving-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-weight: 700;
+  font-family: inherit;
+  line-height: 1;
+  pointer-events: none;
+  transition: transform 0.4s ease;
+  /* start hidden until JS positions it */
+  opacity: 1;
+  will-change: transform;
+}
+
+.final-period {
+  visibility: hidden;
+}
+
+.final-period.visible {
+  visibility: visible;
+}
+
+.bubble {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -175px;
+  margin-top: -175px;
+  transition: none;
+  z-index: 10;
+}
+
+/* Delayed appearance */
+.bubble-delayed {
+  opacity: 0;
+  transform: scale(.9);
+  transition: opacity .8s ease, transform .8s cubic-bezier(.25,.9,.35,1);
+}
+
+.bubble-delayed.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.bubble-circle {
+  position: relative;
+  overflow: hidden;
+  top: 50px;
+  left: 50px;
+  width: 250px;
+  height: 250px;
+  border: 2px solid white;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.bubble-image {
+  position: absolute; /* make it cover */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* fill circle without distortion */
+  opacity: 1;
+  clip-path: circle(0px at 50% 50%);
+  transition: clip-path 0.6s ease-out;
+  will-change: clip-path;
+  pointer-events: none;
+  filter: grayscale(100%);
+}
+
+.bubble-circle:hover .bubble-image {
+  clip-path: circle(50% at 50% 50%);
+}
+
+.bubble-image.reversing {
+  transition: clip-path 0.45s ease-in;
+}
+
+.rotating-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 350px;
+  height: 350px;
+  pointer-events: none;
+  animation: rotate 20s linear infinite;
+}
+
+
+.circle-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  fill: rgb(219, 219, 219);
+  letter-spacing: 11px;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Accessibility: reduce motion (respect user prefers-reduced-motion) */
+@media (prefers-reduced-motion: reduce) {
+  .rotating-text {
+    animation: none;
+  }
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .intro-title {
+    font-size: clamp(2.6rem, 11vw, 7rem);
+    letter-spacing: -6px;
+  }
+  .bubble-circle {
+    width: 220px;
+    height: 220px;
+  }
+  .rotating-text {
+    width: 300px;
+    height: 300px;
+  }
+  .bubble {
+    margin-left: -150px;
+    margin-top: -150px;
+  }
+}
+
+/* Small tablets / large phones */
+@media (max-width: 768px) {
+  .intro-container {
+    padding: 0 1rem;
+  }
+  .intro-title {
+    font-size: clamp(2.4rem, 12vw, 4.4rem);
+    letter-spacing: -3px;
+  }
+  .bubble-circle {
+    width: 170px;
+    height: 170px;
+  }
+  .rotating-text {
+    width: 230px;
+    height: 230px;
+  }
+  .bubble {
+    margin-left: -115px;
+    margin-top: -115px;
+  }
+  .circle-text {
+    font-size: 13px;
+    letter-spacing: 9px;
+  }
+}
+
+/* Phones */
+@media (max-width: 480px) {
+  .intro-title {
+    font-size: 5rem;
+    letter-spacing: -2px;
+  }
+  .bubble-circle {
+    width: 240px;
+    height: 240px;
+  }
+  .rotating-text {
+    width: 400px;
+    height: 320px;
+  }
+  .bubble {
+    margin-left: -120px;
+    margin-top: -305px;
+  }
+  .circle-text {
+    font-size: 15px;
+    letter-spacing: 7px;
+  }
+}
+
+
+@media (hover: none), (pointer: coarse) {
+  .bubble-image {
+    clip-path: circle(75% at 50% 50%) !important;
+    filter: grayscale(100%);
+    transition: none;
+  }
+  .bubble-circle:hover .bubble-image {
+    clip-path: circle(75% at 50% 50%);
+  }
+}

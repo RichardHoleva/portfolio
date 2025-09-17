@@ -1,0 +1,78 @@
+/* Placeholder for upcoming animated title styles */
+/* .intro-title { } */
+
+/* Base animated character styling */
+.intro-title .char {
+  display: inline-block;
+  opacity: 0;
+  animation-duration: 0.9375s; /* was 0.75s, 25% slower */
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(.25,.9,.35,1);
+  will-change: transform, opacity, filter;
+  backface-visibility: hidden;
+}
+
+/* Individual variants share stagger via inline style */
+.intro-title .variant-fade {
+  animation-name: at-fadeUp;
+  transform: translateY(20px);
+}
+
+.intro-title .variant-rotate {
+  animation-name: at-rotateIn;
+  transform: translateY(25px) rotateZ(15deg);
+}
+
+.intro-title .variant-scale {
+  animation-name: at-scaleIn;
+  transform: scale(.4) translateY(10px);
+}
+
+.intro-title .variant-blur {
+  animation-name: at-blurIn;
+  filter: blur(6px);
+  transform: translateY(30px);
+}
+
+.intro-title .variant-flip {
+  animation-name: at-flipIn;
+  transform: rotateX(90deg) translateY(10px);
+  transform-origin: 50% 60%;
+  perspective: 800px;
+}
+
+/* Space spans keep width but are invisible until animated */
+.intro-title .char.space {
+  white-space: pre;
+}
+
+/* Keyframes */
+@keyframes at-fadeUp {
+  0% { opacity:0; transform:translateY(20px); }
+  60% { opacity:1; }
+  100% { opacity:1; transform:translateY(0); }
+}
+
+@keyframes at-rotateIn {
+  0% { opacity:0; transform:translateY(25px) rotateZ(15deg); }
+  70% { opacity:1; }
+  100% { opacity:1; transform:translateY(0) rotateZ(0deg); }
+}
+
+@keyframes at-scaleIn {
+  0% { opacity:0; transform:scale(.4) translateY(10px); }
+  55% { opacity:1; }
+  100% { opacity:1; transform:scale(1) translateY(0); }
+}
+
+@keyframes at-blurIn {
+  0% { opacity:0; filter:blur(6px); transform:translateY(30px); }
+  60% { opacity:1; }
+  100% { opacity:1; filter:blur(0); transform:translateY(0); }
+}
+
+@keyframes at-flipIn {
+  0% { opacity:0; transform:rotateX(90deg) translateY(10px); }
+  60% { opacity:1; }
+  100% { opacity:1; transform:rotateX(0deg) translateY(0); }
+}
