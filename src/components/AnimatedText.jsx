@@ -1,19 +1,56 @@
 import '../styles/AnimatedText.css';
 import '../styles/Intro.css';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState, forwardRef, useImperativeHandle } from 'react';
 
-function AnimatedText({ text, className = 'intro-title', stagger = 0.15, onComplete }) {
+const AnimatedText = forwardRef(function AnimatedText(
+  { text, className = 'intro-title', stagger = 0.15, onComplete },
+  ref
+) {
   const variants = ['fade', 'rotate', 'scale', 'blur', 'flip'];
   const charDuration = 0.9375; // must match CSS animation-duration
+  const timeoutRef = useRef(null);
+  const completedRef = useRef(false);
+  const [skipped, setSkipped] = useState(false);
+
   useEffect(() => {
     if (!onComplete) return;
     const totalMs = ((text.length - 1) * stagger + charDuration + 0.2) * 1000; // extra buffer
-    const t = setTimeout(() => onComplete(), totalMs);
-    return () => clearTimeout(t);
+    timeoutRef.current = setTimeout(() => {
+      if (!completedRef.current) {
+        completedRef.current = true;
+        onComplete();
+      }
+    }, totalMs);
+    return () => clearTimeout(timeoutRef.current);
   }, [text, stagger, onComplete, charDuration]);
 
+  function skipAnimation() {
+    if (skipped) return;
+    setSkipped(true);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (onComplete && !completedRef.current) {
+      completedRef.current = true;
+      onComplete();
+    }
+  }
+
+  useImperativeHandle(ref, () => ({
+    skip: skipAnimation
+  }), [skipped, onComplete]);
+
+  // NEW: global page click -> skip animation
+  useEffect(() => {
+    if (skipped) return;
+    const handle = () => skipAnimation();
+    window.addEventListener('click', handle, { once: true });
+    return () => window.removeEventListener('click', handle);
+  }, [skipped]);
+
   return (
-    <h1 className={className} aria-label={text}>
+    <h1
+      className={`${className} ${skipped ? 'skip-anim' : ''}`}
+      aria-label={text}
+    >
       {text.split('').map((ch, i) => {
         const variant = variants[i % variants.length];
         const delay = (i * stagger).toFixed(2) + 's';
@@ -40,6 +77,6 @@ function AnimatedText({ text, className = 'intro-title', stagger = 0.15, onCompl
       })}
     </h1>
   );
-}
+});
 
 export default AnimatedText;

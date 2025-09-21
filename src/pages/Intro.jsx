@@ -1,12 +1,15 @@
 import '../styles/Intro.css';
 import { useEffect, useRef, useState } from 'react';
 import rhImage from '../assets/rh.png';
-import AnimatedText from '../components/AnimatedText'; // added
+import AnimatedText from '../components/AnimatedText'; 
+import { Link, useNavigate } from 'react-router-dom'; // added useNavigate
 
 function Intro() {
   const bubbleRef = useRef(null);
   const circleRef = useRef(null); // new ref for the circle container
   const [showBubble, setShowBubble] = useState(false); // added
+  const [leaving, setLeaving] = useState(false); // added
+  const navigate = useNavigate(); // added
 
   useEffect(() => {
     const bubble = bubbleRef.current;
@@ -116,9 +119,15 @@ function Intro() {
     };
   }, []);
   
+  const handleNavigate = (e) => {
+    e.preventDefault();            // prevent immediate route change
+    if (leaving) return;
+    setLeaving(true);              // start fade-to-background overlay
+  }; // added
+  
   return (
     <div className="intro-container">
-      <AnimatedText text="RICHARD HOLEVA." onComplete={() => setShowBubble(true)} /> {/* added onComplete */}
+      <AnimatedText text="<RICHARD HOLEVA./>" onComplete={() => setShowBubble(true)} /> {/* added onComplete */}
       
       <div
         className={`bubble bubble-delayed ${showBubble ? 'visible' : ''}`} // modified classes
@@ -139,13 +148,24 @@ function Intro() {
         </svg>
         
         <div className="bubble-circle" ref={circleRef}>
-          <img 
-            src={rhImage} 
-            alt="Profile" 
-            className="bubble-image"
-          />
+          <Link to="/main" onClick={handleNavigate}> {/* modified */}
+            <img 
+              src={rhImage}   
+              alt="Profile" 
+              className="bubble-image"
+            />
+          </Link>
         </div>
       </div>
+
+      {/* overlay that fades in then navigates */}
+      <div
+        className={`page-transition-overlay ${leaving ? 'active' : ''}`} // added
+        onTransitionEnd={(e) => {
+          if (leaving && e.propertyName === 'opacity') navigate('/main'); // added
+        }}
+        aria-hidden="true"
+      />
     </div>
   );
 }

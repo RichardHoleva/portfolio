@@ -17,7 +17,7 @@
 }
 
 .intro-title {
-  font-size: clamp(2.6rem, 14vw, 10rem);
+  font-size: 9rem;
   word-break: break-word;
   font-weight: bold;
   letter-spacing: -8px;
@@ -101,7 +101,7 @@
   clip-path: circle(0px at 50% 50%);
   transition: clip-path 0.6s ease-out;
   will-change: clip-path;
-  pointer-events: none;
+  pointer-events: auto;
   filter: grayscale(100%);
 }
 
@@ -229,4 +229,31 @@
   .bubble-circle:hover .bubble-image {
     clip-path: circle(75% at 50% 50%);
   }
+}
+
+/* Page transition overlay (Intro -> Main) */
+.page-transition-overlay {
+  position: fixed;
+  inset: 0;
+  background: #0B1012; /* match site background */
+  opacity: 0;
+  transition: opacity .5s ease;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.page-transition-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Optionally soften content while leaving (kept subtle) */
+.intro-container .bubble,
+.intro-container .rotating-text {
+  transition: opacity .4s ease, transform .5s ease;
+}
+
+.page-transition-overlay.active ~ .bubble {
+  opacity: 0.5;
+  transform: scale(0.98);
 }

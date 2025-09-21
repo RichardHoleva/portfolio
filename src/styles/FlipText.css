@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+/* Keep "I am" + flip text on the same line and share sizing */
+.intro-role {
+  --flip-font-size: 5rem;
+  --flip-height: 7rem;
+  --flip-pad-v: 0.5rem;
+  --flip-pad-h: 1rem;
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+/* Standalone "I am" label styles (independent from flip card) */
+.iam-label {
+  display: inline-block;
+  font-weight: 300;
+  font-size: 100px;   /* match flip face size */
+  line-height: var(--flip-height); /* align with flip height */
+  color: #ffffff;
+  margin-right: 1.5rem; 
+  font-family: 'Inter', sans-serif;
+  position: relative; /* ensure stacking */
+  z-index: 2;
+}
+
+.flip-card-wrap {
+  /* shared sizing so card, ghost and faces match exactly */
+  --flip-font-size: 5rem;  /* matches card height for perfect centering */
+  --flip-height: 7rem;
+  --flip-pad-v: 0.5rem;
+  --flip-pad-h: 1rem;
+
+  display: inline-block;
+  position: relative;
+  height: var(--flip-height);
+  white-space: nowrap;
+  perspective: 1000px;
+  overflow: visible;       /* keep flip fully inside the wrapper */
+  vertical-align: middle; /* align with the label */
+  z-index: 1;
+}
+
+/* hidden ghost that reserves max width (longest word) */
+.flip-width-ghost {
+  visibility: hidden;
+  pointer-events: none;
+  display: inline-block;
+  padding: var(--flip-pad-v) var(--flip-pad-h); /* match flip-card padding */
+  font-weight: 600;
+  font-size: var(--flip-font-size);             /* match flip face size */
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+/* extra ghost used only for measuring current/next width (doesn't affect layout) */
+.flip-width-measure {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.flip-card {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: var(--flip-height);
+  transform-style: preserve-3d;
+  background: #8fd6b3;
+  border-radius: 8px;
+  padding: var(--flip-pad-v) var(--flip-pad-h); /* match ghost padding */
+  box-sizing: border-box;      /* width includes padding, matches ghost */
+  transition: transform 0.6s ease, width 0.6s ease; /* animate width too */
+}
+
+/* hidden sizing element (kept; doesn't affect layout) */
+.flip-sizer {
+  visibility: hidden;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.flip-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
+  color: #000000;
+  font-weight: 600;
+  font-size: var(--flip-font-size);  /* keep faces in sync with ghost */
+
+  backface-visibility: hidden;
+}
+
+.front {
+  transform: rotateX(0deg);
+}
+
+.back {
+  transform: rotateX(180deg);
+}

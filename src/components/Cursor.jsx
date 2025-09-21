@@ -9,6 +9,7 @@ function CustomCursor({ smoothness = 0.08 }) {
   const targetRef = useRef({ x: -100, y: -100 });
   const rafRef = useRef(null);
   const [hover, setHover] = useState(false);
+  const [isDown, setIsDown] = useState(false);
   const easeRef = useRef(Math.min(Math.max(smoothness, 0.01), 0.5));
 
   useEffect(() => {
@@ -16,22 +17,26 @@ function CustomCursor({ smoothness = 0.08 }) {
   }, [smoothness]);
 
   useEffect(() => {
+    const CLICKABLE_SELECTOR =
+      'a, button, input[type="button"], input[type="submit"], label, select, [role="button"], [onclick], .cursor-hover';
+
     const move = (e) => {
       const { clientX: x, clientY: y } = e;
       setDotPos({ x, y });
       targetRef.current = { x, y };
+
+      const el = document.elementFromPoint(x, y);
+      setHover(!!(el && el.closest(CLICKABLE_SELECTOR)));
     };
 
-    const addHover = (e) => {
-      if (e.target.closest('a, button, .cursor-hover')) setHover(true);
-    };
-    const removeHover = (e) => {
-      if (e.target.closest('a, button, .cursor-hover')) setHover(false);
-    };
+    const handleDown = () => setIsDown(true);
+    const handleUp = () => setIsDown(false);
+    const handleBlur = () => setIsDown(false);
 
     window.addEventListener('mousemove', move);
-    document.addEventListener('mouseover', addHover);
-    document.addEventListener('mouseout', removeHover);
+    window.addEventListener('mousedown', handleDown);
+    window.addEventListener('mouseup', handleUp);
+    window.addEventListener('blur', handleBlur);
 
     const animate = () => {
       setBubblePos((prev) => {
@@ -45,8 +50,9 @@ function CustomCursor({ smoothness = 0.08 }) {
 
     return () => {
       window.removeEventListener('mousemove', move);
-      document.removeEventListener('mouseover', addHover);
-      document.removeEventListener('mouseout', removeHover);
+      window.removeEventListener('mousedown', handleDown);
+      window.removeEventListener('mouseup', handleUp);
+      window.removeEventListener('blur', handleBlur);
       cancelAnimationFrame(rafRef.current);
     };
   }, []);
@@ -54,11 +60,11 @@ function CustomCursor({ smoothness = 0.08 }) {
   return (
     <>
       <div
-        className={`custom-cursor ${hover ? 'is-hover' : ''}`}
+        className={`custom-cursor ${hover ? 'is-hover' : ''} ${isDown ? 'is-down' : ''}`}
         style={{ transform: `translate3d(${bubblePos.x}px, ${bubblePos.y}px, 0)` }}
       />
       <div
-        className="custom-cursor-dot"
+        className={`custom-cursor-dot ${hover ? 'is-hover' : ''}`}
         style={{ transform: `translate3d(${dotPos.x}px, ${dotPos.y}px, 0)` }}
       />
     </>

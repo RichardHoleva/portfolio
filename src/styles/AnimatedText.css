@@ -41,7 +41,7 @@
   perspective: 800px;
 }
 
-/* Space spans keep width but are invisible until animated */
+
 .intro-title .char.space {
   white-space: pre;
 }
@@ -75,4 +75,18 @@
   0% { opacity:0; transform:rotateX(90deg) translateY(10px); }
   60% { opacity:1; }
   100% { opacity:1; transform:rotateX(0deg) translateY(0); }
+}
+
+/* Skip override class to instantly finalize styles */
+.intro-title.skip-anim .char {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+/* Optional: help fix any 3D flip remnants */
+.intro-title.skip-anim .variant-flip {
+  transform-origin: 50% 60% !important;
+  perspective: none !important;
 }

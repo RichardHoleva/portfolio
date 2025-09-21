@@ -1,0 +1,129 @@
+:root {
+  --bg: #0b0f10;
+  --text: #e6efec;
+  --text-soft: rgba(230, 239, 236, 0.9);
+  --accent: #9ccbbf; /* soft green */
+}
+
+.about {
+  background: var(--bg);
+  color: var(--text);
+  padding-block: clamp(56px, 7vw, 112px);
+  padding-inline: 0;
+  overflow-x: clip;
+
+  /* full-bleed regardless of parent constraints */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+
+.about__inner {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding-inline: clamp(16px, 5vw, 64px); /* safe gutters */
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: center;
+  gap: clamp(24px, 5vw, 64px);
+}
+
+.about__title {
+  margin: 0 0 28px 0;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  line-height: 1.2;
+  font-size: clamp(28px, 2.4vw + 1rem, 56px);
+}
+
+.gradient {
+  background: linear-gradient(90deg, #9cebb1 0%, #a8d5cb 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.about__lead {
+  margin: 0 0 18px 0;
+  color: var(--text-soft);
+  line-height: 1.35;
+  font-size: clamp(18px, 1.1vw + 0.6rem, 28px);
+}
+
+.accent {
+  color: var(--accent);
+}
+
+.underline {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.about__media {
+  position: relative;
+  width: min(350px, 30vw); 
+  margin-left: auto;
+}
+
+.about__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 18px;
+}
+
+.about__img--main {
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.55);
+}
+
+/* two grayscale, rotated backdrops */
+.about__img--back1,
+.about__img--back2 {
+  position: absolute;
+  z-index: 1;
+  filter: grayscale(1) contrast(1.05) brightness(0.85);
+  opacity: 0.95;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+}
+
+.about__img--back1 {
+  width: 82%;
+  top: -12%;
+  right: -8%;
+  transform: rotate(-12deg);
+}
+
+.about__img--back2 {
+  width: 78%;
+  bottom: -16%;
+  left: -6%;
+  transform: rotate(12deg);
+}
+
+/* responsive stack */
+@media (max-width: 980px) {
+  .about__inner {
+    grid-template-columns: 1fr;
+  }
+  .about__media {
+    width: min(260px, 43vw); /* was min(520px, 86vw) */
+    margin: 24px auto 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .about__img--back1,
+  .about__img--back2 {
+    display: none; /* keep only the main photo on small screens */
+  }
+  .about__title {
+    font-size: clamp(26px, 6vw, 40px);
+  }
+  .about__lead {
+    font-size: clamp(17px, 4.4vw, 22px);
+  }
+}
