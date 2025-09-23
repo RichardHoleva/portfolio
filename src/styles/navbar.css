@@ -10,6 +10,29 @@
   color: #f5f5f5;
   font-family: system-ui, Arial, sans-serif;
   box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+  position: sticky; 
+}
+
+.scroll-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(143, 214, 179, 0.15), rgba(143, 214, 179, 0.05));
+  border-radius: 0 0 2px 2px;
+  overflow: hidden;
+}
+
+.scroll-progress__bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #5ea88e90 0%, #8fd6b290 50%, #baf2db90 100%);
+  box-shadow: 0 0 8px rgba(143, 214, 179, 0.6);
+  transition: width 0.1s linear;
+  border-radius: inherit;
 }
 
 .nav-left {

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import '../styles/navbar.css';
 import logo from '../assets/logo.png';
 
@@ -65,8 +65,48 @@ function DecodeText({ text, duration = 600 }) {
 }
 
 function Navbar() {
+  const [progress, setProgress] = useState(0);
+  const rafRef = useRef(null);
+
+  useEffect(() => {
+    const calcProgress = () => {
+      const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+      const doc = scrollHeight - clientHeight;
+      const pct = doc > 0 ? (scrollTop / doc) * 100 : 0;
+      setProgress(Math.max(0, Math.min(100, pct)));
+    };
+
+    const onScrollOrResize = () => {
+      if (rafRef.current) return;
+      rafRef.current = requestAnimationFrame(() => {
+        rafRef.current = null;
+        calcProgress();
+      });
+    };
+
+    calcProgress();
+    window.addEventListener('scroll', onScrollOrResize, { passive: true });
+    window.addEventListener('resize', onScrollOrResize);
+    return () => {
+      window.removeEventListener('scroll', onScrollOrResize);
+      window.removeEventListener('resize', onScrollOrResize);
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+    };
+  }, []);
+
   return (
     <nav className="navbar">
+      {/* Scroll progress bar */}
+      <div className="scroll-progress" aria-hidden="true">
+        <div
+          className="scroll-progress__bar"
+          style={{ width: `${progress}%` }}
+        />
+      </div>
+
       <div className="nav-left">
         <img src={logo} alt="Logo" className="logo" />
       </div>

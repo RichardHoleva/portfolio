@@ -2,7 +2,7 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import "../styles/FlipText.css";
 
 const FlipText = () => {
-  const words = ["UX/UI Visual Designer", "Multimedia Design Student", "Front-End Web Developer"];
+  const words = ["Multimedia Design Student", "Front-End Web Developer", "UX/UI Visual Designer"];
   const [rotation, setRotation] = useState(0);
   const [showFront, setShowFront] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
