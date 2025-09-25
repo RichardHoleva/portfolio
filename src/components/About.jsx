@@ -303,7 +303,7 @@ useEffect(() => {
               GitHub
             </a>
             <a
-              className="btn btn--primary"
+              className="btn"
               href="https://www.linkedin.com/in/your-handle"
               target="_blank"
               rel="noopener noreferrer"

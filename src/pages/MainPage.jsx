@@ -10,6 +10,7 @@ import jsImg from '../assets/javas.png';
 import psImg from '../assets/photoshop.png';
 import reactImg from '../assets/reactss.png';
 import About from '../components/About';
+import ProjectSection from '../components/ProjectSection';
 
 function MainPage() {
   const [visible, setVisible] = useState(false); // added
@@ -41,15 +42,11 @@ function MainPage() {
           <img className="tech" src={psImg} alt="Photoshop" />
         </div>
       </section>
-
-      {/* About now full-bleed without wrapper */}
+      
       <About />
+      
+      <ProjectSection />
 
-      {/* Placeholder sections */}
-      <section id="projects" className="section-block">
-        <h2>Projects</h2>
-        <p>/* placeholder projects content */</p>
-      </section>
       <section id="contact" className="section-block">
         <h2>Contact</h2>
         <p>/* placeholder contact content */</p>
