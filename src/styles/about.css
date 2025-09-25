@@ -96,8 +96,7 @@ html { scroll-behavior: smooth; }
 }
 
 /* Keep whole words together in paragraphs and hover-fill text */
-.about__lead,
-.hover-fill {
+.about__lead {
   word-break: keep-all;
   overflow-wrap: normal;
   hyphens: none;

@@ -1,49 +1,65 @@
 .project-card {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  background: #151515; /* dark card */
+  justify-content: center;           /* center content in the full-screen card */
+  background: #151515;
   border-radius: 16px;
-  padding: 2rem;
-  margin: 2rem 0;
+  padding: clamp(2rem, 4vw, 3.5rem);
+  margin: 0;                         /* fill the viewport wrapper */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   position: relative;
+
+  height: 100%;                      /* take full viewport height from parent */
+  width: 100%;                       /* span available width (section has gutters) */
+  
 }
 
 .project-image img {
-  width: 320px;
-  height: auto;
+  width: 500px;
+  height: 500px;
   border-radius: 12px;
   object-fit: cover;
 }
 
 .project-content {
   flex: 1;
-  margin-left: 2rem;
+  margin-left: clamp(2rem, 3vw, 3rem);
   position: relative;
+  /* removed padding-right so only overlapping lines wrap */
+  /* padding-right: 160px; */
 }
 
 .project-title {
   color: #9be3c0; /* mint green */
-  font-size: 2rem;
+  font-size: clamp(2.25rem, 3.5vw, 3.25rem);
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
 
 .project-description {
   color: #e0e0e0;
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: clamp(1.125rem, 1.2vw, 1.4rem);
+  line-height: 1.75;
   margin-bottom: 1.5rem;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: none;
+}
+
+.project-links {
+  /* ensure links start below the bubble at full width */
+  clear: right;
 }
 
 .project-links a {
   display: inline-block;
   margin-right: 1rem;
-  padding: 0.5rem 1.2rem;
-  border-radius: 20px;
-  border: 2px solid #9be3c0;
+  padding: 0.65rem 1.5rem;
+  border-radius: 28px;
+  border: 2.5px solid #9be3c0;
   color: #9be3c0;
+  font-size: 1.05rem;
   font-weight: 500;
   text-decoration: none;
   transition: all 0.3s ease;
@@ -54,23 +70,28 @@
   color: #151515;
 }
 
-/* Video circle */
+/* Video circle wraps text only where it overlaps */
 .video-circle {
-  position: absolute;
-  top: -20px;
-  right: -20px;
-  width: 70px;
-  height: 70px;
+  float: right;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   background: #9be3c0;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #151515;
-  font-size: 1.5rem;
+  font-size: 3rem;
   font-weight: bold;
   text-decoration: none;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  /* make text wrap around the circle shape */
+  shape-outside: circle(50%);
+  shape-margin: 14px;
+
+  /* nudge outward similar to your previous absolute -20/-20 */
+  margin: -80px -20px 12px 18px;
 }
 
 .video-circle:hover {
@@ -78,7 +99,7 @@
   box-shadow: 0 0 12px #9be3c0;
 }
 
-/* Responsive (stack image on top for small screens) */
+/* Responsive */
 @media (max-width: 768px) {
   .project-card {
     flex-direction: column;
@@ -87,16 +108,21 @@
 
   .project-image img {
     width: 100%;
-    max-width: 500px;
+    max-width: 600px;
     margin-bottom: 1.5rem;
   }
 
   .project-content {
+    /* keep spacing readable on mobile */
     margin-left: 0;
   }
 
+  /* keep bubble on the right but avoid overflow on small screens */
   .video-circle {
-    top: 10px;
-    right: 10px;
+    width: 120px;
+    height: 120px;
+    font-size: 1.35rem;
+    margin: 0 0 12px 12px;
+    shape-margin: 12px;
   }
 }
