@@ -12,7 +12,7 @@
   /* reserve vertical room so the bubble doesn't cover content */
   --bubble-size: 160px;
   --bubble-offset: clamp(12px, 2.5vw, 24px);      /* move bubble lower */
-  --bubble-extra-gap: clamp(2px, 0.4vw, 8px);   /* small spacing under bubble */
+  --bubble-extra-gap: clamp(25px, 0.4vw, 8px);   /* small spacing under bubble */
   /* remove large reserved top space */
   /* padding-top: calc(var(--bubble-size) + var(--bubble-offset) + var(--bubble-extra-gap)); */
 }
@@ -71,10 +71,7 @@
   background: #9be3c0;
   color: #151515;
 }
-
-/* Video circle pinned to the card's top-right corner with a gap */
 .video-circle {
-  /* pinned to the card's top-right corner with a gap */
   position: absolute;
   top: var(--bubble-offset);
   right: var(--bubble-offset);
@@ -83,27 +80,12 @@
   width: var(--bubble-size);
   height: var(--bubble-size);
   border-radius: 50%;
-  /* Keep a fallback background behind the video */
   background: #000;
-  /* Make it a clickable container */
   display: block;
   overflow: hidden;
   cursor: pointer;
   border: none;
   outline: none;
-  /* smooth hover */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-  /* removed float/shape-outside/margins since we are absolutely positioned */
-  /* float: right; */
-  /* shape-outside: circle(50%); */
-  /* shape-margin: 14px; */
-  /* margin: 8px 0 12px 18px; */
-}
-
-.video-circle:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 12px #9be3c0;
 }
 
 /* The video fills the bubble and stays cropped as a circle */
@@ -113,27 +95,51 @@
   object-fit: cover;
   display: block;
   border-radius: 50%;
-  pointer-events: none; /* route clicks to the container for toggle */
+  pointer-events: none; 
 }
 
-/* Centered play icon (hidden while playing) */
+/* Refined Play Button - smaller and simpler */
 .video-circle .play-icon {
+  /* override the full-overlay style to a compact, centered control */
   position: absolute;
-  inset: 0;
+  inset: auto;              /* cancels inset: 0 */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: grid;
   place-items: center;
-  color: #9be3c0;
-  font-size: 2.25rem;
+
+  width: 50px ;
+  height: 50px ;
+  border-radius: 999px;
+
+  background: rgba(21, 21, 21, 0.6);
+  border: 2.5px solid #9be3c041;
+  color: #9be3c0bf;
+
+  font-size: px;
   font-weight: 700;
-  text-shadow: 0 0 8px rgba(0,0,0,0.6);
-  transition: opacity 0.2s ease;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+
+  pointer-events: none; /* allow clicks to hit the bubble underneath */
 }
 
+/* Hide while playing, keep transitions smooth */
 .video-circle.is-playing .play-icon {
   opacity: 0;
 }
 
-
+/* Fallback: draw a play triangle if no icon/text is provided */
+.video-circle .play-icon:empty::before {
+  content: "";
+  display: block;
+  width: 0; height: 0;
+  margin-left: 2px; /* optical centering */
+  border-left: 0.60em solid currentColor;
+  border-top: 0.38em solid transparent;
+  border-bottom: 0.38em solid transparent;
+}
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -162,5 +168,11 @@
     top: var(--bubble-offset);
     right: var(--bubble-offset);
     /* float/margins remain unused */
+  }
+
+  .video-circle .play-icon {
+    width: clamp(22px, 6vw, 30px);
+    height: clamp(22px, 6vw, 30px);
+    font-size: clamp(8px, 1.4vw, 12px);
   }
 }

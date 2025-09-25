@@ -3,9 +3,8 @@
   --fly-duration: 600ms;
 }
 
-/* Page-level snap scrolling */
+/* keep your global tweaks as-is */
 html {
-  /* disable snap and smooth scrolling */
   scroll-snap-type: none;
   scroll-behavior: auto;
 }
@@ -13,30 +12,51 @@ body {
   overscroll-behavior-y: contain;
 }
 
-/* Normal container (no full-bleed) */
+/* Full-viewport horizontal scroller */
 .projects-section {
-  width: 100%;
-  margin-left: 0;
-  margin-right: 0;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden; /* hide any inner vertical overflow */
+  margin: 0;
 }
 
-/* Normal stacking (no full-viewport, no snap, no animation) */
+.projects-track {
+  display: flex;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;     /* snap one card per view */
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;     /* keep horizontal scroll self-contained */
+  scrollbar-width: none;
+  -ms-overflow-style: none;           /* IE and Edge */ 
+}
+
+/* Each slide fills the viewport width */
 .project {
-  min-height: auto;
-  display: block;
-
-  /* removed: grid centering, snap props, fly-in animation, transforms */
-  opacity: 1;
-  transform: none;
-  filter: none;
-  transition: none;
+  flex: 0 0 100vw;
+  height: 100%;
+  scroll-snap-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Make the card fill its container naturally */
+/* Card sizing inside each slide */
 .project > .project-card {
-  /* make the card smaller and centered */
-  width: min(1500px, 92%);
-  margin: clamp(16px, 4vw, 32px) auto;
+  width: min(1250px, 92vw);
+  margin: 0 auto;
   height: auto;
   box-sizing: border-box;
+}
+
+/* Optional: hide scrollbar on WebKit (still accessible) */
+.projects-track::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+.projects-track::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.2);
+  border-radius: 4px;
 }

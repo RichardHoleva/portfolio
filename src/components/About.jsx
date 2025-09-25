@@ -295,7 +295,7 @@ useEffect(() => {
           <nav className="about__links" aria-label="Profiles">
             <a
               className="btn"
-              href="https://github.com/your-username"
+              href="https://github.com/RichardHoleva"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub profile"
@@ -304,7 +304,7 @@ useEffect(() => {
             </a>
             <a
               className="btn"
-              href="https://www.linkedin.com/in/your-handle"
+              href="hhttps://www.linkedin.com/in/richard-holeva-8621b8326"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn profile"
