@@ -34,8 +34,9 @@ body {
 
 /* Make the card fill its container naturally */
 .project > .project-card {
-  width: 100%;
+  /* make the card smaller and centered */
+  width: min(1500px, 92%);
+  margin: clamp(16px, 4vw, 32px) auto;
   height: auto;
-  margin-left: 0;
-  margin-right: 0;
+  box-sizing: border-box;
 }

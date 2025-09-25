@@ -1,19 +1,48 @@
 import "../styles/projectcard.css";
+import skuska from "../assets/skuska.mp4";
+import { useRef, useState } from "react";
 
-function ProjectCard({ title, description, image, githubLink, demoLink, videoLink }) {
+function ProjectCard({ title, description, image, githubLink, demoLink }) {
+  const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const togglePlay = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (v.paused) {
+      v.play();
+    } else {
+      v.pause();
+    }
+  };
+
   return (
     <div className="project-card">
+      {/* Video bubble pinned to the card's top-right corner */}
+      <button
+        type="button"
+        className={`video-circle ${isPlaying ? "is-playing" : ""}`}
+        onClick={togglePlay}
+        aria-label={isPlaying ? "Pause video" : "Play video"}
+      >
+        <video
+          ref={videoRef}
+          src={skuska}
+          preload="metadata"
+          playsInline
+          onPlay={() => setIsPlaying(true)}
+          onPause={() => setIsPlaying(false)}
+          onEnded={() => setIsPlaying(false)}
+        />
+        <span className="play-icon">▶</span>
+      </button>
+
       <div className="project-image">
         <img src={image} alt={title} />
       </div>
 
       <div className="project-content">
         <h2 className="project-title">{title}</h2>
-
-        {/* Float this so only the description wraps around it */}
-        <a href={videoLink} target="_blank" rel="noopener noreferrer" className="video-circle">
-          ▶
-        </a>
 
         <p className="project-description">{description}</p>
 
