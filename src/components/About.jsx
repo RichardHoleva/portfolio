@@ -279,7 +279,7 @@ useEffect(() => {
 
           <p className="about__lead hover-fill" data-hover-fill>
             I’m Richard, 21. I build <span className="accent">clean</span>, <span className="accent">intuitive</span>, and <span className="accent">fast</span> web experiences
-            with a focus on UX/UI and craft.
+            with a focus  on UX/UI and craft.
           </p>
 
           <p className="about__lead hover-fill" data-hover-fill>

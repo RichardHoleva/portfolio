@@ -97,14 +97,21 @@ html { scroll-behavior: smooth; }
   line-height: 1.35;
   font-size: clamp(18px, 1.1vw + 0.6rem, 28px);
   white-space: normal;        /* Explicit normal behavior */
-  overflow-wrap: break-word;  /* Changed from normal */
-  word-break: normal;         /* Changed from keep-all */
+  overflow-wrap: normal;      /* Changed from break-word to normal */
+  word-break: keep-all;       /* Changed from normal to keep-all */
   hyphens: none;
   max-width: 100%;            /* Ensure container respects parent width */
 }
+
+.about__lead span {
+  display: inline-block;      /* This helps keep accent/mark spans together */
+  white-space: nowrap;        /* Keep the highlighted words together */
+}
+
+
 .about__text {
-  overflow-wrap: break-word;  
-  word-break: normal;         
+  overflow-wrap: normal;      /* Changed from break-word to normal */
+  word-break: keep-all;       /* Changed from normal to keep-all */
   hyphens: none;              
   word-spacing: 0.01em;       
 }
