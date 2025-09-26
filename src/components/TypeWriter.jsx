@@ -5,7 +5,7 @@ function TypewriterText() {
   return (
     <span style={{ color: "#8fd6b3", fontSize: "1.5rem", display: "inline-block", marginTop: "2rem" }}>
       <Typewriter
-        words={['develop cool shit 🚀' , 'explore the unknown 🧭', 'push boundaries 💪🏼','create things that make the world better place 🌍', ' be swaggy 👽' ] }
+        words={['develop cool shit ' , 'explore the unknown ', 'push boundaries ','create things that make the world better place ', ' be swaggy ' ] }
         loop={false}
         cursor
         cursorStyle="_"

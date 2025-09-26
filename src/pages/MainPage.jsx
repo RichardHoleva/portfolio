@@ -38,7 +38,7 @@ function MainPage() {
       {/* Intro / Hero Section */}
       <section className="intro">
           <FlipText />
-          <p className='typewriter-text'>I was born to <TypeWriter /></p>
+          <p className='typewriter-text'>I was born to 👽 <TypeWriter /></p>
         <h2 className="intro-role">
         </h2>
 
