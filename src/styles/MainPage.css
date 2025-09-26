@@ -4,7 +4,12 @@ html, body {
   padding: 0;
   background: #0B1012;
   color: #f5f5f5;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Segoe UI', 'Fira Sans', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Droid Sans', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
 }
 
@@ -26,6 +31,22 @@ a:hover {
   color: #ff0000;
 }
 
+/* Make all headings bold and spaced for modern look */
+h1, h2, h3, h4, h5, h6 {
+  font-family: inherit;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.5em;
+  color: #f5f5f5;
+}
+
+/* Paragraphs and general text */
+p, li, span, label, input, textarea, button {
+  font-family: inherit;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
 /* Intro Section */
 .intro {
   min-height: 80vh;
@@ -41,18 +62,27 @@ a:hover {
   font-size: 4rem;
   margin: 0;
   color: #f5f5f5;
+  font-family: inherit;
+  font-weight: 700;
+  letter-spacing: 0.03em;
 }
 
 .highlight {
   font-weight: bold;
   font-size:   7rem;
   color: #8fd6b3; /* teal-ish from screenshot */
+  font-family: inherit;
+  font-weight: 800;
+  letter-spacing: 0.04em;
 }
 
 .intro-subtitle {
   margin-top: 1rem;
   font-size: 1.5rem;
   color: #a3a3a3;
+  font-family: inherit;
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
 .accent {
@@ -64,6 +94,9 @@ a:hover {
   font-size: 1.8rem;
   font-weight: 600;
   color: #ffffff;
+  font-family: inherit;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .tech-stack {
@@ -106,6 +139,16 @@ a:hover {
 .typewriter-text {
   font-size: 1.3rem;
   color: #f5f5f5;
+  font-family: inherit;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+/* Buttons and interactive elements */
+button, .back-to-top {
+  font-family: inherit;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 /* Back to Top button */

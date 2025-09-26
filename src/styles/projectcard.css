@@ -15,6 +15,10 @@
   --bubble-extra-gap: clamp(25px, 0.4vw, 8px);   /* small spacing under bubble */
   /* remove large reserved top space */
   /* padding-top: calc(var(--bubble-size) + var(--bubble-offset) + var(--bubble-extra-gap)); */
+  font-family: 'Segoe UI', 'Fira Sans', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Droid Sans', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.08rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
 .project-image img {
@@ -36,7 +40,8 @@
 .project-title {
   color: #9be3c0; /* mint green */
   font-size: clamp(2.25rem, 3.5vw, 3.25rem);
-  font-weight: bold;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   margin-bottom: 2.5rem;
   /* clear: right;  no floats anymore */
 }
@@ -50,6 +55,8 @@
   word-break: normal;
   overflow-wrap: normal;
   hyphens: none;
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
 .project-links {
@@ -70,6 +77,9 @@
   border: 1px solid rgba(156, 203, 191, 0.35);
   text-decoration: none;
   transition: transform 120ms ease, background 160ms ease, border-color 160ms ease;
+  font-family: inherit;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .project-links a:hover {

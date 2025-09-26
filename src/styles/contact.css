@@ -5,8 +5,8 @@
   --border: #222733;
   --ink: #e7e9ee;
   --ink-muted: #c7cbd4;
-  --ink-dim: #9aa3b2;
-  --accent: #8fd6b3; /* warm highlight */
+  --ink-dim: #9aa3b2;/
+  
 }
 
 *,
@@ -21,8 +21,12 @@ body {
   padding: 0;
   background: var(--bg-1);
   color: var(--ink);
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
-    Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  font-family: 'Segoe UI', 'Fira Sans', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Droid Sans', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   line-height: 1.45;
 }
 
@@ -57,26 +61,24 @@ body {
 
 .contact-title {
   margin: 0;
+  margin-top: 0.05em; /* add small gap above title */
   line-height: 0.95;
   font-weight: 900;
   letter-spacing: -0.02em;
-  font-size: clamp(2.8rem, 7vw, 5rem);
-}
-
-.contact-title .accent {
-  display: block;
+  font-size: 3rem;
+  font-family: inherit;
   font-weight: 800;
-  opacity: 0.9;
-  font-size: 60px;
+  letter-spacing: -0.01em;
 }
-
-
 
 .contact-intro {
   margin: 0;
   max-width: 55ch;
   line-height: 1.6;
   color: var(--ink-muted);
+  font-family: inherit;
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
 /* ================================
@@ -91,67 +93,55 @@ body {
 }
 
 .btn {
-  appearance: none;
-  border: 1px solid transparent;
-  border-radius: 14px;
-  padding: 0.8rem 1.1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
-  text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  white-space: nowrap;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 15px;
+  color: #e6efec;
+  background: rgba(156, 203, 191, 0.14);
+  border: 1px solid rgba(156, 203, 191, 0.35);
+  text-decoration: none;
+  font-family: inherit;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 120ms ease, background 160ms ease, border-color 160ms ease;
 }
 
-.btn:hover {
-  transform: translateY(-1px);
-}
-
+/* Distinct primary button style for contact */
 .btn-primary {
-  background: var(--accent);
-  color: #14161a;
-  border-color: var(--accent);
+  background: rgba(156, 203, 191, 0.14);
+  color: #e6efec;
+  border-color: rgba(156, 203, 191, 0.55);
+  border: 1px solid rgba(156, 203, 191, 0.35);
+  box-shadow: 0 2px 8px rgba(143, 214, 179, 0.08);
 }
 
+.btn-primary:hover {
+  border-color: #a6e3c9;
+}
+
+/* Distinct ghost button style for contact */
 .btn-ghost {
-  background: transparent;
-  color: var(--ink);
-  border-color: #2a2f37;
+  background: rgba(156, 203, 191, 0.14);
+  border-color: rgba(156, 203, 191, 0.55);
+  color: #e6efec;
+  border: 1px solid rgba(156, 203, 191, 0.35);
+  font-weight: 600;
+}
+
+.btn-ghost:hover {
+  background: rgba(156, 203, 191, 0.06);
+  border-color: #8fd6b3;
 }
 
 .btn-full {
   width: 100%;
 }
 
-/* ================================
-   Social links
-   ================================ */
 
-.contact-links {
-  list-style: none;
-  padding: 0;
-  margin: 0.5rem 0 0;
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.contact-links a {
-  color: var(--ink-muted);
-  text-decoration: none;
-  border-bottom: 1px dashed transparent;
-}
-
-.contact-links a:hover {
-  border-bottom-color: var(--ink-muted);
-}
-
-/* ================================
-   Remove Card & Info List
-   ================================ */
 
 .contact-card,
 .card-title,
@@ -203,4 +193,14 @@ body {
   .contact-center {
     gap: 1.5rem;
   }
+}
+
+.contact-connect-big {
+  font-size: 6rem;
+  font-weight: 700;
+  color: #8fd6b3;
+  line-height: 1;
+  text-align: center;
+  letter-spacing: -0.03em;
+  margin-bottom: -0.15em; /* add small gap below big text */
 }

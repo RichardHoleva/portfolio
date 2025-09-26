@@ -8,7 +8,10 @@
   padding: 1.15rem 1.725rem; 
   background: #0B1012;
   color: #f5f5f5;
-  font-family: system-ui, Arial, sans-serif;
+  font-family: 'Segoe UI', 'Fira Sans', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Droid Sans', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.08rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
   box-shadow: 0 2px 6px rgba(0,0,0,0.35);
   position: sticky; 
 }
@@ -61,6 +64,9 @@
   text-decoration: none;
   font-size: 1.1rem; 
   transition: color .2s;
+  font-family: inherit;
+  font-weight: 500;
+  letter-spacing: 0.02em;
 }
 
 .nav-links a:hover {
@@ -77,7 +83,7 @@
   cursor: pointer;
   font-size: 0.85rem;
   font-weight: 600;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.03em;
   transition: transform .15s, box-shadow .15s;
 }
 
@@ -95,6 +101,9 @@
   max-width: 900px;
   margin: 0 auto;
   color: #222;
+  font-family: inherit;
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
 .decode {

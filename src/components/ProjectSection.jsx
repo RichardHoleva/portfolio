@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import ProjectCard from "./ProjectCard";
 import "../styles/projectsection.css";
 import macBookAirCC from "../assets/MacBook_AIR_CC.png";
+import iphonedd from "../assets/iphone_dd.png";
+import bench from "../assets/banchscape.png";
+import spilcafen from "../assets/spilcafen.png";
 
 const projectData = [
 	{
@@ -16,29 +19,29 @@ const projectData = [
 	{
 		title: "Dish-Delights",
 		description:
-			"In this project I combined two of my biggest interests, AI and food. I was curious how real recipe recommendation systems are built, so I coded Dish-Delights, a simple assistant that suggests recipes based on user preferences. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
-		image: macBookAirCC,
-		githubLink: "https://github.com/RichardHoleva/dish-delights.git",
-		demoLink: "https://richardholeva.github.io/dish-delights",
+			"24-Hour Exam Project – Built a responsive CRUD recipe website using HTML, CSS, and JavaScript. Users can create, edit, and delete recipes. Focused on matching my design, ensuring responsiveness, and submitting on time. Completed both the project and a written report. Intense but rewarding challenge that tested my coding and time-management skills.",
+		image: iphonedd,
+		githubLink: "https://github.com/RichardHoleva/exam.git",
+		demoLink: "https://richardholeva.github.io/exam/",
 	},
 
 	{
 		title: "BenchScape",
 		description:
-			"In this project I combined two of my biggest interests, AI and design. I was curious how real interior design applications are built, so I coded BenchScape, a simple assistant that suggests furniture arrangements based on user preferences. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
-		image: macBookAirCC,
-		githubLink: "https://github.com/RichardHoleva/bench-scape.git",
-		demoLink: "https://richardholeva.github.io/bench-scape",
+			"My first school exam project using HTML, CSS, and JavaScript. I built a website that reveals hidden benches around Aarhus where people can enjoy sunsets. As someone who loves sunsets, I wanted to create something personal while also helping others find quiet places to relax and unwind. It was a challenging project that pushed my coding skills, but in the end, I was proud to make it work.",
+		image: bench,
+		githubLink: "https://github.com/RichardHoleva/programovanie.git",
+		demoLink: "https://richardholeva.github.io/programovanie",
 	},
 
-	{
-		title: "SpilCafeen",
-		description:
-			"In this project I combined two of my biggest interests, AI and food. I was curious how real restaurant recommendation systems are built, so I coded SpilCafeen, a simple assistant that suggests restaurants based on user preferences. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
-		image: macBookAirCC,
-		githubLink: "https://github.com/RichardHoleva/spilcafeen.git",
-		demoLink: "https://richardholeva.github.io/spilcafeen",
-	},
+{
+  title: "SpilCafeen",
+  description:
+    "Team project focused on designing and developing a website. I was responsible for the coding part, creating an admin page where staff could update the site with new board games. Learned how databases work in Firebase and gained hands-on experience implementing Firebase into projects.<br /><br />Email: aspilcafen@gmail.com<br />Password: admin123",
+  image: spilcafen,
+  githubLink: "https://github.com/RichardHoleva/admin.git",
+  demoLink: "https://richardholeva.github.io/admin",
+},
 
 
 

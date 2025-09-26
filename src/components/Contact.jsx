@@ -6,12 +6,11 @@ export default function Contact() {
     <section id="contact" className="contact-wrap" aria-labelledby="contact-title">
       <div className="contact-center">
         <header className="contact-hero" role="banner">
+          {/* Added big green "Let's connect" */}
+          <div className="contact-connect-big">Let’s connect</div>
           <h1 id="contact-title" className="contact-title">
             <span>Let’s connect</span>
-            <span className="accent">Let’s connect</span>
           </h1>
-
-
 
           <div className="cta-row" role="group" aria-label="Contact actions">
             <a className="btn btn-primary" href="https://www.linkedin.com/in/richard-holeva-8621b8326">

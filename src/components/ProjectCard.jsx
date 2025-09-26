@@ -1,5 +1,5 @@
 import "../styles/projectcard.css";
-import skuska from "../assets/skuska.mp4";
+import skuska from "../assets/skuska_a.mp4";
 import { useRef, useState } from "react";
 
 function ProjectCard({ title, description, image, githubLink, demoLink }) {
@@ -44,7 +44,7 @@ function ProjectCard({ title, description, image, githubLink, demoLink }) {
       <div className="project-content">
         <h2 className="project-title">{title}</h2>
 
-        <p className="project-description">{description}</p>
+          <p className="project-description" dangerouslySetInnerHTML={{ __html: description }} />
 
         <div className="project-links">
           <a href={githubLink} target="_blank" rel="noopener noreferrer">GitHub</a>
