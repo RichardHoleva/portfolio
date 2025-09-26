@@ -14,58 +14,34 @@ const projectData = [
 	},
 
 	{
-		title: "CryptoCoach-AI",
+		title: "Dish-Delights",
 		description:
-			"In this project I combined two of my biggest interests, AI and crypto. I was curious how real chatbots are built, so I coded CryptoCoach AI, a simple assistant that answers basic questions about crypto and memecoins. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
+			"In this project I combined two of my biggest interests, AI and food. I was curious how real recipe recommendation systems are built, so I coded Dish-Delights, a simple assistant that suggests recipes based on user preferences. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
 		image: macBookAirCC,
-		githubLink: "https://github.com/RichardHoleva/ai-crypto-coach.git",
-		demoLink: "https://richardholeva.github.io/ai-crypto-coach",
+		githubLink: "https://github.com/RichardHoleva/dish-delights.git",
+		demoLink: "https://richardholeva.github.io/dish-delights",
 	},
 
 	{
-		title: "CryptoCoach-AI",
+		title: "BenchScape",
 		description:
-			"In this project I combined two of my biggest interests, AI and crypto. I was curious how real chatbots are built, so I coded CryptoCoach AI, a simple assistant that answers basic questions about crypto and memecoins. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
+			"In this project I combined two of my biggest interests, AI and design. I was curious how real interior design applications are built, so I coded BenchScape, a simple assistant that suggests furniture arrangements based on user preferences. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
 		image: macBookAirCC,
-		githubLink: "https://github.com/RichardHoleva/ai-crypto-coach.git",
-		demoLink: "https://richardholeva.github.io/ai-crypto-coach",
+		githubLink: "https://github.com/RichardHoleva/bench-scape.git",
+		demoLink: "https://richardholeva.github.io/bench-scape",
 	},
 
 	{
-		title: "CryptoCoach-AI",
+		title: "SpilCafeen",
 		description:
-			"In this project I combined two of my biggest interests, AI and crypto. I was curious how real chatbots are built, so I coded CryptoCoach AI, a simple assistant that answers basic questions about crypto and memecoins. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
+			"In this project I combined two of my biggest interests, AI and food. I was curious how real restaurant recommendation systems are built, so I coded SpilCafeen, a simple assistant that suggests restaurants based on user preferences. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
 		image: macBookAirCC,
-		githubLink: "https://github.com/RichardHoleva/ai-crypto-coach.git",
-		demoLink: "https://richardholeva.github.io/ai-crypto-coach",
+		githubLink: "https://github.com/RichardHoleva/spilcafeen.git",
+		demoLink: "https://richardholeva.github.io/spilcafeen",
 	},
 
-	{
-		title: "CryptoCoach-AI",
-		description:
-			"In this project I combined two of my biggest interests, AI and crypto. I was curious how real chatbots are built, so I coded CryptoCoach AI, a simple assistant that answers basic questions about crypto and memecoins. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
-		image: macBookAirCC,
-		githubLink: "https://github.com/RichardHoleva/ai-crypto-coach.git",
-		demoLink: "https://richardholeva.github.io/ai-crypto-coach",
-	},
 
-	{
-		title: "CryptoCoach-AI",
-		description:
-			"In this project I combined two of my biggest interests, AI and crypto. I was curious how real chatbots are built, so I coded CryptoCoach AI, a simple assistant that answers basic questions about crypto and memecoins. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
-		image: macBookAirCC,
-		githubLink: "https://github.com/RichardHoleva/ai-crypto-coach.git",
-		demoLink: "https://richardholeva.github.io/ai-crypto-coach",
-	},
 
-	{
-		title: "CryptoCoach-AI",
-		description:
-			"In this project I combined two of my biggest interests, AI and crypto. I was curious how real chatbots are built, so I coded CryptoCoach AI, a simple assistant that answers basic questions about crypto and memecoins. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
-		image: macBookAirCC,
-		githubLink: "https://github.com/RichardHoleva/ai-crypto-coach.git",
-		demoLink: "https://richardholeva.github.io/ai-crypto-coach",
-	},
 ];
 
 function ProjectsSection() {

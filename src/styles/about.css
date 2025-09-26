@@ -67,7 +67,6 @@ html { scroll-behavior: smooth; }
 }
 .about__title-line--role {
   color: var(--text);
-  font-weight: 700;
   font-size: clamp(26px, 1.6vw + 1rem, 44px);
   line-height: 1.16;
   margin-top: 6px;
@@ -137,6 +136,7 @@ html { scroll-behavior: smooth; }
   transform: translateY(-8px);
   background: rgba(156, 203, 191, 0.14);
   border-color: rgba(156, 203, 191, 0.55);
+  text-decoration: none;
 }
 
 .about__media {

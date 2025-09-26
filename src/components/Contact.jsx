@@ -14,8 +14,8 @@ export default function Contact() {
 
 
           <div className="cta-row" role="group" aria-label="Contact actions">
-            <a className="btn btn-primary" href="mailto:richardholeva1012@gmail.com">
-              Email Me
+            <a className="btn btn-primary" href="https://www.linkedin.com/in/richard-holeva-8621b8326">
+              Linkedin me
             </a>
             <a
               className="btn btn-ghost"
@@ -23,22 +23,10 @@ export default function Contact() {
               target="_blank"
               rel="noreferrer"
             >
-              View Résumé
+              View Resume
             </a>
           </div>
 
-          <ul className="contact-links" aria-label="Social links">
-            <li>
-              <a href="https://www.linkedin.com/in/your-handle" target="_blank" rel="noreferrer">
-                <span aria-hidden="true">↗</span> LinkedIn
-              </a>
-            </li>
-            <li>
-              <a href="https://github.com/your-handle" target="_blank" rel="noreferrer">
-                <span aria-hidden="true">↗</span> GitHub
-              </a>
-            </li>
-          </ul>
         </header>
       </div>
 

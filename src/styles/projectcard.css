@@ -52,24 +52,30 @@
   hyphens: none;
 }
 
-
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; 
+  font-weight: 700;
+}
 
 .project-links a {
-  display: inline-block;
-  margin-right: 1rem;
-  padding: 0.65rem 1.5rem;
-  border-radius: 28px;
-  border: 2.5px solid #9be3c0;
-  color: #9be3c0;
-  font-size: 1.05rem;
-  font-weight: 500;
+ display: inline-flex;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 15px;
+  color: #e6efec;
+  background: rgba(156, 203, 191, 0.08);
+  border: 1px solid rgba(156, 203, 191, 0.35);
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: transform 120ms ease, background 160ms ease, border-color 160ms ease;
 }
 
 .project-links a:hover {
-  background: #9be3c0;
-  color: #151515;
+  transform: translateY(-8px);
+  background: rgba(156, 203, 191, 0.14);
+  border-color: rgba(156, 203, 191, 0.55);
 }
 .video-circle {
   position: absolute;
