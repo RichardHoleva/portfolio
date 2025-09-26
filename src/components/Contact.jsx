@@ -3,26 +3,45 @@ import "../styles/contact.css";
 
 export default function Contact() {
   return (
-    <section id="contact" className="section-block contact-hero" aria-labelledby="contact-title">
-      <div className="contact-hero-wrap">
-        <div className="contact-hero-left">
-          <h1 id="contact-title" className="contact-hero-title">
-            <span className="line">Let's</span>
-            <span className="line">Connect</span>
+    <section id="contact" className="contact-wrap" aria-labelledby="contact-title">
+      <div className="contact-center">
+        <header className="contact-hero" role="banner">
+          <h1 id="contact-title" className="contact-title">
+            <span>Let’s connect</span>
+            <span className="accent">Let’s connect</span>
           </h1>
-          <div className="contact-hero-subtext">
-            <p>Let us know how we can help</p>
-            <p>Don't let your vision wait, let's bring it to life</p>
-          </div>
-        </div>
 
-        <div className="contact-hero-right" aria-hidden="true">
-          <div className="contact-art">
-            <div className="ring"></div>
-            <div className="ring ring-sm"></div>
+
+
+          <div className="cta-row" role="group" aria-label="Contact actions">
+            <a className="btn btn-primary" href="mailto:richardholeva1012@gmail.com">
+              Email Me
+            </a>
+            <a
+              className="btn btn-ghost"
+              href="/Holeva_Resume.pdf"
+              target="_blank"
+              rel="noreferrer"
+            >
+              View Résumé
+            </a>
           </div>
-        </div>
+
+          <ul className="contact-links" aria-label="Social links">
+            <li>
+              <a href="https://www.linkedin.com/in/your-handle" target="_blank" rel="noreferrer">
+                <span aria-hidden="true">↗</span> LinkedIn
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/your-handle" target="_blank" rel="noreferrer">
+                <span aria-hidden="true">↗</span> GitHub
+              </a>
+            </li>
+          </ul>
+        </header>
       </div>
+
     </section>
   );
 }
