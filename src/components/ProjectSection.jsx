@@ -1,142 +1,253 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import ProjectCard from "./ProjectCard";
 import "../styles/projectsection.css";
 import macBookAirCC from "../assets/MacBook_AIR_CC.png";
 
 const projectData = [
-  {
-    title: "CryptoCoach-AI",
-    description:
-      "In this project I combined two of my biggest interests, AI and crypto. I was curious how real chatbots are built, so I coded CryptoCoach AI, a simple assistant that answers basic questions about crypto and memecoins. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
-    image: macBookAirCC,
-    githubLink: "https://github.com/RichardHoleva/ai-crypto-coach.git",
-    demoLink: "https://richardholeva.github.io/ai-crypto-coach",
-  },
+	{
+		title: "CryptoCoach-AI",
+		description:
+			"In this project I combined two of my biggest interests, AI and crypto. I was curious how real chatbots are built, so I coded CryptoCoach AI, a simple assistant that answers basic questions about crypto and memecoins. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
+		image: macBookAirCC,
+		githubLink: "https://github.com/RichardHoleva/ai-crypto-coach.git",
+		demoLink: "https://richardholeva.github.io/ai-crypto-coach",
+	},
 
-    {
-    title: "CryptoCoach-AI",
-    description:
-      "In this project I combined two of my biggest interests, AI and crypto. I was curious how real chatbots are built, so I coded CryptoCoach AI, a simple assistant that answers basic questions about crypto and memecoins. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
-    image: macBookAirCC,
-    githubLink: "https://github.com/RichardHoleva/ai-crypto-coach.git",
-    demoLink: "https://richardholeva.github.io/ai-crypto-coach",
-  },
+	{
+		title: "CryptoCoach-AI",
+		description:
+			"In this project I combined two of my biggest interests, AI and crypto. I was curious how real chatbots are built, so I coded CryptoCoach AI, a simple assistant that answers basic questions about crypto and memecoins. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
+		image: macBookAirCC,
+		githubLink: "https://github.com/RichardHoleva/ai-crypto-coach.git",
+		demoLink: "https://richardholeva.github.io/ai-crypto-coach",
+	},
 
-    {
-    title: "CryptoCoach-AI",
-    description:
-      "In this project I combined two of my biggest interests, AI and crypto. I was curious how real chatbots are built, so I coded CryptoCoach AI, a simple assistant that answers basic questions about crypto and memecoins. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
-    image: macBookAirCC,
-    githubLink: "https://github.com/RichardHoleva/ai-crypto-coach.git",
-    demoLink: "https://richardholeva.github.io/ai-crypto-coach",
-  },
+	{
+		title: "CryptoCoach-AI",
+		description:
+			"In this project I combined two of my biggest interests, AI and crypto. I was curious how real chatbots are built, so I coded CryptoCoach AI, a simple assistant that answers basic questions about crypto and memecoins. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
+		image: macBookAirCC,
+		githubLink: "https://github.com/RichardHoleva/ai-crypto-coach.git",
+		demoLink: "https://richardholeva.github.io/ai-crypto-coach",
+	},
 
-    {
-    title: "CryptoCoach-AI",
-    description:
-      "In this project I combined two of my biggest interests, AI and crypto. I was curious how real chatbots are built, so I coded CryptoCoach AI, a simple assistant that answers basic questions about crypto and memecoins. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
-    image: macBookAirCC,
-    githubLink: "https://github.com/RichardHoleva/ai-crypto-coach.git",
-    demoLink: "https://richardholeva.github.io/ai-crypto-coach",
-  },
+	{
+		title: "CryptoCoach-AI",
+		description:
+			"In this project I combined two of my biggest interests, AI and crypto. I was curious how real chatbots are built, so I coded CryptoCoach AI, a simple assistant that answers basic questions about crypto and memecoins. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
+		image: macBookAirCC,
+		githubLink: "https://github.com/RichardHoleva/ai-crypto-coach.git",
+		demoLink: "https://richardholeva.github.io/ai-crypto-coach",
+	},
 
-    {
-    title: "CryptoCoach-AI",
-    description:
-      "In this project I combined two of my biggest interests, AI and crypto. I was curious how real chatbots are built, so I coded CryptoCoach AI, a simple assistant that answers basic questions about crypto and memecoins. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
-    image: macBookAirCC,
-    githubLink: "https://github.com/RichardHoleva/ai-crypto-coach.git",
-    demoLink: "https://richardholeva.github.io/ai-crypto-coach",
-  },
+	{
+		title: "CryptoCoach-AI",
+		description:
+			"In this project I combined two of my biggest interests, AI and crypto. I was curious how real chatbots are built, so I coded CryptoCoach AI, a simple assistant that answers basic questions about crypto and memecoins. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
+		image: macBookAirCC,
+		githubLink: "https://github.com/RichardHoleva/ai-crypto-coach.git",
+		demoLink: "https://richardholeva.github.io/ai-crypto-coach",
+	},
 
-    {
-    title: "CryptoCoach-AI",
-    description:
-      "In this project I combined two of my biggest interests, AI and crypto. I was curious how real chatbots are built, so I coded CryptoCoach AI, a simple assistant that answers basic questions about crypto and memecoins. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
-    image: macBookAirCC,
-    githubLink: "https://github.com/RichardHoleva/ai-crypto-coach.git",
-    demoLink: "https://richardholeva.github.io/ai-crypto-coach",
-  },
+	{
+		title: "CryptoCoach-AI",
+		description:
+			"In this project I combined two of my biggest interests, AI and crypto. I was curious how real chatbots are built, so I coded CryptoCoach AI, a simple assistant that answers basic questions about crypto and memecoins. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
+		image: macBookAirCC,
+		githubLink: "https://github.com/RichardHoleva/ai-crypto-coach.git",
+		demoLink: "https://richardholeva.github.io/ai-crypto-coach",
+	},
 
-    {
-    title: "CryptoCoach-AI",
-    description:
-      "In this project I combined two of my biggest interests, AI and crypto. I was curious how real chatbots are built, so I coded CryptoCoach AI, a simple assistant that answers basic questions about crypto and memecoins. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
-    image: macBookAirCC,
-    githubLink: "https://github.com/RichardHoleva/ai-crypto-coach.git",
-    demoLink: "https://richardholeva.github.io/ai-crypto-coach",
-  },
+	{
+		title: "CryptoCoach-AI",
+		description:
+			"In this project I combined two of my biggest interests, AI and crypto. I was curious how real chatbots are built, so I coded CryptoCoach AI, a simple assistant that answers basic questions about crypto and memecoins. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
+		image: macBookAirCC,
+		githubLink: "https://github.com/RichardHoleva/ai-crypto-coach.git",
+		demoLink: "https://richardholeva.github.io/ai-crypto-coach",
+	},
 ];
 
 function ProjectsSection() {
   const sectionRef = useRef(null);
   const trackRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [hasEntered, setHasEntered] = useState(false);
+  const totalProjects = projectData.length;
 
-useEffect(() => {
-  const trackEl = trackRef.current;
-  const sectionEl = sectionRef.current;
-  if (!trackEl || !sectionEl) return;
+  useEffect(() => {
+    const sectionEl = sectionRef.current;
+    const trackEl = trackRef.current;
+    if (!sectionEl || !trackEl) return;
 
-  const card = trackEl.querySelector(".project");
-  const cardWidth = card ? card.offsetWidth : trackEl.clientWidth;
-  const totalCards = trackEl.querySelectorAll(".project").length;
+    function setDynamicHeight() {
+      // Set section height to accommodate all projects
+      const sectionHeight = window.innerHeight * totalProjects;
+      sectionEl.style.height = `${sectionHeight}px`;
+      return { sectionHeight };
+    }
 
-  let currentIndex = 0;
-  let isScrolling = false;
+    let dims = setDynamicHeight();
 
-const onWheel = (e) => {
-const sectionRect = sectionEl.getBoundingClientRect();
-const tolerance = 100; // px of leeway
+    function scrollToProject(index) {
+      if (isScrolling) return;
+      
+      const targetIndex = Math.max(0, Math.min(index, totalProjects - 1));
+      const targetScroll = sectionEl.offsetTop + (targetIndex * window.innerHeight);
+      
+      setIsScrolling(true);
+      
+      // Scroll to the corresponding vertical position
+      window.scrollTo({
+        top: targetScroll,
+        behavior: 'smooth'
+      });
+      
+      // Update the active index
+      setActiveIndex(targetIndex);
+      
+      // Add a small delay before starting transform to sync better with scroll
+      requestAnimationFrame(() => {
+        // Apply the transform with hardware acceleration
+        trackEl.style.transform = `translate3d(${-targetIndex * window.innerWidth}px,0,0)`;
+      });
+      
+      // Reset scrolling flag after animation completes (match to CSS duration)
+      setTimeout(() => setIsScrolling(false), 900);
+    }
 
-const pinnedInView =
-  sectionRect.top <= tolerance && sectionRect.bottom >= window.innerHeight - tolerance;
+    function isInViewport() {
+      const rect = sectionEl.getBoundingClientRect();
+      return rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2;
+    }
 
-if (!pinnedInView) return;
-  const atStart = currentIndex === 0;
-const atEnd = currentIndex === totalCards - 1;
-const scrollingForward = e.deltaY > 0;
+    function handleScroll() {
+      if (isScrolling) return;
+      
+      // Check if we've just entered the section
+      const inViewport = isInViewport();
+      
+      // If we just entered the section, reset to the first project
+      if (inViewport && !hasEntered) {
+        setHasEntered(true);
+        trackEl.style.transform = `translate3d(0,0,0)`;
+        setActiveIndex(0);
+        return;
+      }
+      
+      // Only handle internal section scrolling if we're already in the section
+      if (hasEntered) {
+        // Calculate scroll position relative to the section
+        const scrollPosition = window.scrollY - sectionEl.offsetTop;
+        const newIndex = Math.max(0, Math.min(
+          Math.round(scrollPosition / window.innerHeight),
+          totalProjects - 1
+        ));
+        
+        if (newIndex !== activeIndex) {
+          trackEl.style.transform = `translate3d(${-newIndex * window.innerWidth}px,0,0)`;
+          setActiveIndex(newIndex);
+        }
+      }
+    }
 
-const fullyAtEnd =
-  atEnd &&
-  Math.ceil(trackEl.scrollLeft + trackEl.clientWidth) >= trackEl.scrollWidth - 2;
+    function handleWheel(e) {
+      // Only handle wheel events if we're in the section
+      if (!isInViewport() || isScrolling) return;
+      
+      e.preventDefault();
+      
+      // Determine scroll direction
+      const direction = e.deltaY > 0 ? 1 : -1;
+      scrollToProject(activeIndex + direction);
+    }
 
-const canScrollHoriz =
-  (scrollingForward && !fullyAtEnd) || (!scrollingForward && !atStart);
+    function onResize() {
+      dims = setDynamicHeight();
+      // Re-adjust to maintain correct position
+      if (hasEntered) {
+        trackEl.style.transform = `translate3d(${-activeIndex * window.innerWidth}px,0,0)`;
+      }
+    }
 
-  if (canScrollHoriz) {
-    e.preventDefault();
+    // Reset when leaving the section
+    function checkVisibility() {
+      if (!isInViewport() && hasEntered) {
+        setHasEntered(false);
+      }
+    }
 
-    if (isScrolling) return;
-    isScrolling = true;
+    // Handle wheel events for snap scrolling
+    sectionEl.addEventListener("wheel", handleWheel, { passive: false });
+    
+    // Handle regular scroll events
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("scroll", checkVisibility, { passive: true });
+    window.addEventListener("resize", onResize);
 
-    currentIndex = scrollingForward
-      ? Math.min(currentIndex + 1, totalCards - 1)
-      : Math.max(currentIndex - 1, 0);
+    // Initial position check
+    handleScroll();
 
-    trackEl.scrollTo({
-      left: currentIndex * cardWidth,
-      behavior: "smooth",
+    return () => {
+      sectionEl.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", checkVisibility);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [activeIndex, isScrolling, hasEntered, totalProjects]);
+
+  // Function to handle navigation bubble clicks
+  function navigateToProject(index) {
+    const sectionEl = sectionRef.current;
+    const trackEl = trackRef.current;
+    if (!sectionEl || !trackEl || isScrolling) return;
+    
+    const targetIndex = Math.max(0, Math.min(index, totalProjects - 1));
+    const targetScroll = sectionEl.offsetTop + (targetIndex * window.innerHeight);
+    
+    setIsScrolling(true);
+    
+    // Scroll to the corresponding vertical position
+    window.scrollTo({
+      top: targetScroll,
+      behavior: 'smooth'
     });
-
-    setTimeout(() => {
-      isScrolling = false;
-    }, 600);
+    
+    // Update the active index
+    setActiveIndex(targetIndex);
+    
+    // Add a small delay before starting transform
+    requestAnimationFrame(() => {
+      trackEl.style.transform = `translate3d(${-targetIndex * window.innerWidth}px,0,0)`;
+    });
+    
+    // Reset scrolling flag after animation completes
+    setTimeout(() => setIsScrolling(false), 900);
   }
-  // if atEnd and scrolling forward => fall through to Contact
-};
-
-  window.addEventListener("wheel", onWheel, { passive: false });
-  return () => window.removeEventListener("wheel", onWheel);
-}, []);
 
   return (
     <section ref={sectionRef} className="projects-section" id="projects">
-      <div ref={trackRef} className="projects-track">
-        {projectData.map((proj, i) => (
-          <section key={i} className="project">
-            <ProjectCard {...proj} />
-          </section>
-        ))}
+      <div className="projects-sticky">
+        <div ref={trackRef} className="projects-track">
+          {projectData.map((proj, i) => (
+            <section key={i} className="project">
+              <ProjectCard {...proj} />
+            </section>
+          ))}
+        </div>
+        
+        {/* Navigation Bubbles */}
+        <div className="project-nav-bubbles">
+          {projectData.map((_, i) => (
+            <button
+              key={i}
+              className={`nav-bubble ${i === activeIndex ? 'active' : ''}`}
+              onClick={() => navigateToProject(i)}
+              aria-label={`Navigate to project ${i + 1}`}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

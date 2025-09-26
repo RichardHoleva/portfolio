@@ -1,62 +1,81 @@
-:root {
-  --fly-distance: 64px;
-  --fly-duration: 600ms;
-}
-
-/* keep your global tweaks as-is */
-html {
-  scroll-snap-type: none;
-  scroll-behavior: auto;
-}
-body {
-  overscroll-behavior-y: contain;
-}
-
-/* Full-viewport horizontal scroller */
 .projects-section {
   position: relative;
-  width: 100vw;
+  /* Height now set dynamically in JS */
+}
+
+.projects-sticky {
+  position: sticky;
+  top: 0;
   height: 100vh;
-  overflow: hidden; /* hide any inner vertical overflow */
-  margin: 0;
+  overflow: hidden;
+  background: transparent;
 }
 
 .projects-track {
   display: flex;
   height: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-snap-type: x mandatory;     /* snap one card per view */
-  scroll-behavior: smooth;
-  overscroll-behavior-x: contain;     /* keep horizontal scroll self-contained */
-  scrollbar-width: none;
-  -ms-overflow-style: none;           /* IE and Edge */ 
+  width: max-content;
+  will-change: transform;
+  transform: translate3d(0,0,0);
+  /* Increased duration and smoother easing curve */
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Each slide fills the viewport width */
 .project {
   flex: 0 0 100vw;
   height: 100%;
-  scroll-snap-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Card sizing inside each slide */
 .project > .project-card {
   width: min(1250px, 92vw);
   margin: 0 auto;
-  height: auto;
   box-sizing: border-box;
 }
 
-/* Optional: hide scrollbar on WebKit (still accessible) */
-.projects-track::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+/* Navigation bubbles container */
+.project-nav-bubbles {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 10;
 }
-.projects-track::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,0.2);
-  border-radius: 4px;
+
+/* Individual navigation bubble */
+.nav-bubble {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+/* Active bubble state */
+.nav-bubble.active {
+  background: #9be3c0;
+  transform: scale(1.2);
+}
+
+/* Hover effect */
+.nav-bubble:hover {
+  background: rgba(155, 227, 192, 0.7);
+}
+
+.projects-section::before,
+.projects-section::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  pointer-events: none;
+  z-index: 2;
 }

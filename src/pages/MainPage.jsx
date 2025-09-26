@@ -11,13 +11,24 @@ import psImg from '../assets/photoshop.png';
 import reactImg from '../assets/reactss.png';
 import About from '../components/About';
 import ProjectSection from '../components/ProjectSection';
+import Contact from '../components/Contact'; // added
 
 function MainPage() {
   const [visible, setVisible] = useState(false); // added
+  // show "back to top" when scrolled down
+  const [showToTop, setShowToTop] = useState(false);
 
   useEffect(() => {
     const id = requestAnimationFrame(() => setVisible(true)); // added
     return () => cancelAnimationFrame(id);
+  }, []);
+
+  // toggle button on scroll
+  useEffect(() => {
+    const onScroll = () => setShowToTop(window.scrollY > 250);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // initialize
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
@@ -47,10 +58,21 @@ function MainPage() {
       
       <ProjectSection />
 
-      <section id="contact" className="section-block">
-        <h2>Contact</h2>
-        <p>/* placeholder contact content */</p>
-      </section>
+      {/* replaced placeholder with Contact */}
+      <Contact />
+      {/* Back to Top button */}
+      <button
+        type="button"
+        className={`back-to-top ${showToTop ? 'show' : ''}`}
+        aria-label="Back to top"
+        title="Back to top"
+        onClick={() => {
+          const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
+        }}
+      >
+        <span className="back-to-top__icon">↑</span>
+      </button>
     </div>
   );
 }

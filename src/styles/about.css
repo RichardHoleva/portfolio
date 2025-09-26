@@ -50,8 +50,11 @@ html { scroll-behavior: smooth; }
 }
 
 /* split title lines */
-.about__title-line { 
+.about__title-line {
   display: block;
+  word-break: keep-all;
+  overflow-wrap: normal;
+  hyphens: none;
 }
 .about__title-line--hello {
   font-weight: 600;
@@ -93,16 +96,20 @@ html { scroll-behavior: smooth; }
   color: var(--text-soft);
   line-height: 1.35;
   font-size: clamp(18px, 1.1vw + 0.6rem, 28px);
-}
-
-/* Keep whole words together in paragraphs and hover-fill text */
-.about__lead {
-  word-break: keep-all;
-  overflow-wrap: normal;
+  white-space: normal;        /* Explicit normal behavior */
+  overflow-wrap: break-word;  /* Changed from normal */
+  word-break: normal;         /* Changed from keep-all */
   hyphens: none;
+  max-width: 100%;            /* Ensure container respects parent width */
+}
+.about__text {
+  overflow-wrap: break-word;  
+  word-break: normal;         
+  hyphens: none;              
+  word-spacing: 0.01em;       
 }
 
-/* profile links (replaces tags) */
+
 .about__links {
   margin: 12px 0 18px 0;
   display: flex;
@@ -133,20 +140,22 @@ html { scroll-behavior: smooth; }
   position: relative;
   width: min(350px, 30vw); /* balanced size, smaller as requested */
   margin-left: auto;
-
-  /* allow vertical scroll while enabling horizontal drag gestures */
+  align-self: center; /* ensure vertical centering */
+  transform: translateY(-10%); /* moved up to center with text */
+  height: 400px; /* add fixed height to contain absolute positioned images */
   touch-action: pan-y;
 }
 
 /* shared image base */
 .about__img {
-  display: block;
+  position: absolute; /* all images are absolute positioned */
   width: 100%;
   height: auto;
+  max-height: 100%;
   object-fit: cover;
   border-radius: 18px;
-
-  /* smooth transform and opacity for swipe/drag */
+  top: 0;
+  left: 0;
   transition: transform 260ms ease, opacity 220ms ease, filter 260ms ease;
   user-select: none;
   -webkit-user-drag: none;
@@ -182,27 +191,24 @@ html { scroll-behavior: smooth; }
 }
 
 .about__img.is-front {
-  position: relative;          /* keep container height */
   z-index: 2;
-  transform: rotate(-3.5deg);  /* default tilt */
+  transform: rotate(-3.5deg);
   filter: none;
   cursor: grab;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.55);
 }
 
 .about__img.is-front.is-dragging {
-  transition: none;            /* follow the finger */
+  transition: none;
   cursor: grabbing;
 }
 
 .about__img.is-back {
-  position: absolute;
   z-index: 1;
-  width: 86%;
-  top: 8%;
-  left: -8%;
-  transform: rotate(8deg);
+  transform: rotate(8deg) scale(0.86) translate(-8%, 8%); /* combined transform */
   filter: grayscale(1) contrast(1.05) brightness(0.9);
   opacity: 0.95;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
 }
 
 /* leave the screen on swipe */
