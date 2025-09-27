@@ -1,19 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  /* nový dvojrozmerový model */
+  --ring-size: clamp(260px, 52vw, 350px);  /* veľkosť kruhového textu */
+  --bubble-ratio: 0.72;                    /* pomer fotobubliny voči ring-size (desktop) */
+  --bubble-size: calc(var(--ring-size) * var(--bubble-ratio));
+  --circle-size: calc(var(--bubble-size) * 0.60); /* was 0.7142857, now smaller */
+  --circle-offset: calc((var(--bubble-size) - var(--circle-size)) / 2);
+  --ring-speed: 20s;
+  --bg: #0B1012;
 }
 
 .intro-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100svh;
   width: 100%;
-  background-color:   #0B1012;
+  background-color: var(--bg);
   overflow: hidden;
+  padding: 0 1rem; /* trocha dýchania na malých zariadeniach */
 }
 
 .intro-title {
@@ -29,74 +37,65 @@
   display: inline-block;
 }
 
-.intro-letter {
-  display: inline-block;
-  position: relative;
-}
+.intro-letter { display: inline-block; position: relative; }
 
 .moving-dot {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   font-weight: 700;
   font-family: inherit;
   line-height: 1;
   pointer-events: none;
   transition: transform 0.4s ease;
-  /* start hidden until JS positions it */
   opacity: 1;
   will-change: transform;
 }
 
-.final-period {
-  visibility: hidden;
-}
+.final-period { visibility: hidden; }
+.final-period.visible { visibility: visible; }
 
-.final-period.visible {
-  visibility: visible;
-}
-
+/* ===== Bubble/Layout: centrovanie bez negatívnych marginov ===== */
 .bubble {
   position: absolute;
   top: 50%;
   left: 50%;
-  margin-left: -175px;
-  margin-top: -175px;
-  transition: none;
+  width: var(--ring-size);   /* bolo: --bubble-size */
+  height: var(--ring-size);  /* ring je vonkajší obal pre SVG text */
+  transform: translate(-50%, -50%);
   z-index: 10;
 }
 
 /* Delayed appearance */
 .bubble-delayed {
   opacity: 0;
-  transform: scale(.9);
+  transform: translate(-50%, -50%) scale(.9);
   transition: opacity .8s ease, transform .8s cubic-bezier(.25,.9,.35,1);
 }
-
 .bubble-delayed.visible {
   opacity: 1;
-  transform: scale(1);
+  transform: translate(-50%, -50%) scale(1);
 }
 
+/* vnútorný kruh drží pôvodný pomer a offset */
 .bubble-circle {
-  position: relative;
+  position: absolute;
   overflow: hidden;
-  top: 50px;
-  left: 50px;
-  width: 250px;
-  height: 250px;
+  /* centrovanie voči ring-size */
+  top: calc((var(--ring-size) - var(--bubble-size)) / 2);
+  left: calc((var(--ring-size) - var(--bubble-size)) / 2);
+  width: var(--bubble-size);
+  height: var(--bubble-size);
   border: 2px solid white;
   border-radius: 50%;
   transition: all 0.3s ease;
 }
-
+/* obraz vnútri */
 .bubble-image {
-  position: absolute; /* make it cover */
-  top: 0;
-  left: 0;
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* fill circle without distortion */
+  object-fit: cover;
   opacity: 1;
   clip-path: circle(0px at 50% 50%);
   transition: clip-path 0.6s ease-out;
@@ -105,121 +104,86 @@
   filter: grayscale(100%);
 }
 
-.bubble-circle:hover .bubble-image {
-  clip-path: circle(50% at 50% 50%);
-}
+.bubble-circle:hover .bubble-image { clip-path: circle(50% at 50% 50%); }
+.bubble-image.reversing { transition: clip-path 0.45s ease-in; }
 
-.bubble-image.reversing {
-  transition: clip-path 0.45s ease-in;
-}
-
+/* rotujúci text má veľkosť podľa bubliny */
 .rotating-text {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 350px;
-  height: 350px;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
-  animation: rotate 20s linear infinite;
+  animation: rotate var(--ring-speed) linear infinite;
 }
-
 
 .circle-text {
   font-family: 'Inter', sans-serif;
-  font-size: 14px;
+  font-size: clamp(10px, 1.25vw, 14px);
   font-weight: 800;
   fill: rgb(219, 219, 219);
-  letter-spacing: 11px;
+  letter-spacing: clamp(7px, 1.1vw, 11px);
 }
 
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+@keyframes rotate { from { transform: rotate(0deg);} to { transform: rotate(360deg);} }
 
-/* Accessibility: reduce motion (respect user prefers-reduced-motion) */
+/* Accessibility: reduce motion */
 @media (prefers-reduced-motion: reduce) {
-  .rotating-text {
-    animation: none;
-  }
+  .rotating-text { animation: none; }
 }
 
-/* Tablet */
+/* ===== Breakpointy (ľahké korekcie typografie) ===== */
 @media (max-width: 1024px) {
+    .circle-text, .ring-text {
+    font-size: clamp(9px, 3.2vw, 11px);
+    letter-spacing: clamp(5px, 1.8vw, 9px);
+  }
+  
+  :root {
+    --bubble-ratio: 0.60;
+    --circle-size: calc(var(--bubble-size) * 0.52); /* smaller for tablet */
+    --circle-offset: calc((var(--bubble-size) - var(--circle-size)) / 2);
+  }
+
   .intro-title {
     font-size: clamp(2.6rem, 11vw, 7rem);
     letter-spacing: -6px;
   }
-  .bubble-circle {
-    width: 220px;
-    height: 220px;
-  }
-  .rotating-text {
-    width: 300px;
-    height: 300px;
-  }
-  .bubble {
-    margin-left: -150px;
-    margin-top: -150px;
-  }
 }
 
-/* Small tablets / large phones */
 @media (max-width: 768px) {
-  .intro-container {
-    padding: 0 1rem;
+    .circle-text, .ring-text {
+    font-size: clamp(9px, 3.2vw, 11px);
+    letter-spacing: clamp(5px, 1.8vw, 9px);
   }
+  
+  :root {
+    --bubble-ratio: 0.52;
+    --circle-size: calc(var(--bubble-size) * 0.44); /* even smaller for mobile */
+    --circle-offset: calc((var(--bubble-size) - var(--circle-size)) / 2);
+  }
+
   .intro-title {
-    font-size: clamp(2.4rem, 12vw, 4.4rem);
+    font-size: clamp(2.2rem, 10.5vw, 4.4rem);
     letter-spacing: -3px;
   }
-  .bubble-circle {
-    width: 170px;
-    height: 170px;
-  }
-  .rotating-text {
-    width: 230px;
-    height: 230px;
-  }
-  .bubble {
-    margin-left: -115px;
-    margin-top: -115px;
-  }
-  .circle-text {
-    font-size: 13px;
-    letter-spacing: 9px;
-  }
+
 }
 
-/* Phones */
+/* Telefony – nechaj kruh väčší, ale stále fluidný (už rieši clamp) */
 @media (max-width: 480px) {
+    .circle-text, .ring-text {
+    font-size: clamp(9px, 3.2vw, 11px);
+    letter-spacing: clamp(5px, 1.8vw, 9px);
+  }
+  
   .intro-title {
-    font-size: 5rem;
+    font-size: clamp(2rem, 12vw, 3.6rem);
     letter-spacing: -2px;
   }
-  .bubble-circle {
-    width: 240px;
-    height: 240px;
-  }
-  .rotating-text {
-    width: 400px;
-    height: 320px;
-  }
-  .bubble {
-    margin-left: -120px;
-    margin-top: -305px;
-  }
-  .circle-text {
-    font-size: 15px;
-    letter-spacing: 7px;
-  }
 }
 
-
+/* Dotykové zariadenia: vždy odkryté */
 @media (hover: none), (pointer: coarse) {
   .bubble-image {
     clip-path: circle(75% at 50% 50%) !important;
@@ -227,7 +191,7 @@
     transition: none;
   }
   .bubble-circle:hover .bubble-image {
-    clip-path: circle(75% at 50% 50%);
+    clip-path: circle(80% at 50% 50%);
   }
 }
 
@@ -235,25 +199,23 @@
 .page-transition-overlay {
   position: fixed;
   inset: 0;
-  background: #0B1012; /* match site background */
+  background: var(--bg);
   opacity: 0;
   transition: opacity .5s ease;
   pointer-events: none;
   z-index: 9999;
 }
-
 .page-transition-overlay.active {
   opacity: 1;
   pointer-events: all;
 }
 
-/* Optionally soften content while leaving (kept subtle) */
+/* Subtílne stíšenie prvkov pri odchode */
 .intro-container .bubble,
 .intro-container .rotating-text {
   transition: opacity .4s ease, transform .5s ease;
 }
-
 .page-transition-overlay.active ~ .bubble {
   opacity: 0.5;
-  transform: scale(0.98);
+  transform: translate(-50%, -50%) scale(0.98);
 }

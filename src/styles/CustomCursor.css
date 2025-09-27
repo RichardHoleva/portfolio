@@ -96,3 +96,10 @@ html, body, * {
   70%  { transform: scale(1.7); opacity: 0;   }
   100% { transform: scale(1.7); opacity: 0;   }
 }
+
+@media (max-width: 680px) {
+  .custom-cursor,
+  .custom-cursor-dot {
+    display: none !important;
+  }
+}

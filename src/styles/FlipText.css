@@ -2,8 +2,8 @@
 
 /* Keep "I am" + flip text on the same line and share sizing */
 .intro-role {
-  --flip-font-size: 5rem;
-  --flip-height: 7rem;
+  --flip-font-size: 3.2rem;
+  --flip-height: 4.2rem;
   --flip-pad-v: 0.5rem;
   --flip-pad-h: 1rem;
   display: inline-flex;
@@ -16,10 +16,10 @@
 .iam-label {
   display: inline-block;
   font-weight: 300;
-  font-size: 100px;   /* match flip face size */
+  font-size: 2.8rem;   /* match flip face size */
   line-height: var(--flip-height); /* align with flip height */
   color: #ffffff;
-  margin-right: 1.5rem; 
+  margin-right: 1.2rem; 
   font-family: 'Inter', sans-serif;
   position: relative; /* ensure stacking */
   z-index: 2;
@@ -27,8 +27,8 @@
 
 .flip-card-wrap {
   /* shared sizing so card, ghost and faces match exactly */
-  --flip-font-size: 5rem;  /* matches card height for perfect centering */
-  --flip-height: 7rem;
+  --flip-font-size: 3.2rem;  /* matches card height for perfect centering */
+  --flip-height: 4.2rem;
   --flip-pad-v: 0.5rem;
   --flip-pad-h: 1rem;
 
@@ -107,4 +107,62 @@
 
 .back {
   transform: rotateX(180deg);
+}
+
+@media (max-width: 900px) {
+  .intro-role {
+    --flip-font-size: 2.1rem;
+    --flip-height: 2.8rem;
+    font-size: 1.1rem;
+  }
+  .iam-label {
+    font-size: 2.1rem;
+    line-height: 2.8rem;
+    margin-right: 0.8rem;
+  }
+  .flip-card-wrap {
+    --flip-font-size: 2.1rem;
+    --flip-height: 2.8rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .intro-role {
+    --flip-font-size: 1.2rem;
+    --flip-height: 1.7rem;
+    font-size: 1rem;
+  }
+  .iam-label {
+    font-size: 1.2rem;
+    line-height: 1.7rem;
+    margin-right: 0.5rem;
+  }
+  .flip-card-wrap {
+    --flip-font-size: 1.2rem;
+    --flip-height: 1.7rem;
+  }
+  .flip-width-ghost,
+  .flip-width-measure,
+  .flip-card,
+  .flip-face {
+    font-size: 1.2rem !important;
+  }
+}
+
+/* Make flip text and "I am" bigger on desktop only */
+@media (min-width: 901px) {
+  .intro-role {
+    --flip-font-size: 4.2rem;
+    --flip-height: 5.5rem;
+    font-size: 1.7rem;
+  }
+  .iam-label {
+    font-size: 3.8rem;
+    line-height: 5.5rem;
+    margin-right: 1.7rem;
+  }
+  .flip-card-wrap {
+    --flip-font-size: 4.2rem;
+    --flip-height: 5.5rem;
+  }
 }

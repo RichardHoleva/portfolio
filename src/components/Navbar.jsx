@@ -67,6 +67,7 @@ function DecodeText({ text, duration = 600 }) {
 function Navbar() {
   const [progress, setProgress] = useState(0);
   const rafRef = useRef(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const calcProgress = () => {
@@ -97,6 +98,25 @@ function Navbar() {
     };
   }, []);
 
+  // Close menu on resize to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 680 && menuOpen) setMenuOpen(false);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [menuOpen]);
+
+  // Prevent scroll when menu is open (mobile)
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
+
   return (
     <nav className="navbar">
       {/* Scroll progress bar */}
@@ -110,29 +130,57 @@ function Navbar() {
       <div className="nav-left">
         <img src={logo} alt="Logo" className="logo" />
       </div>
-      <ul className="nav-links">
+
+      {/* Burger menu button for mobile */}
+      <button
+        className={`burger${menuOpen ? ' open' : ''}`}
+        aria-label={menuOpen ? "Close menu" : "Open menu"}
+        aria-expanded={menuOpen}
+        aria-controls="nav-links"
+        onClick={() => setMenuOpen((v) => !v)}
+      >
+        <span className="burger-bar" />
+        <span className="burger-bar" />
+        <span className="burger-bar" />
+      </button>
+
+      {/* Nav links, responsive */}
+      <ul
+        className={`nav-links${menuOpen ? ' open' : ''}`}
+        id="nav-links"
+        role="menu"
+        aria-hidden={!menuOpen && window.innerWidth <= 680}
+        onClick={() => { if (menuOpen) setMenuOpen(false); }}
+      >
         <li>
-          <a href="#about" aria-label="About">
+          <a href="#about" aria-label="About" role="menuitem">
             <DecodeText text="About" />
           </a>
         </li>
         <li>
-          <a href="#projects" aria-label="Projects">
+          <a href="#projects" aria-label="Projects" role="menuitem">
             <DecodeText text="Projects" />
           </a>
         </li>
         <li>
-          <a href="#contact" aria-label="Contact">
+          <a href="#contact" aria-label="Contact" role="menuitem">
             <DecodeText text="Contact" />
           </a>
         </li>
+        <li>
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Experiences"
+            role="menuitem"
+          >
+            <DecodeText text="Experiences" />
+          </a>
+        </li>
       </ul>
-      <button
-        className="resume-btn"
-        onClick={() => window.open('/resume.pdf', '_blank')}
-      >
-        Experiences
-      </button>
+      {/* Mobile menu overlay */}
+      {menuOpen && <div className="nav-overlay" onClick={() => setMenuOpen(false)} />}
     </nav>
   );
 }

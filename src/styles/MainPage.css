@@ -156,22 +156,28 @@ button, .back-to-top {
   position: fixed;
   right: 24px;
   bottom: 24px;
-  width: 56px;
-  height: 56px;
-  border: none;
+  width: 64px;
+  height: 64px;
+  border: 2px solid #7ec8a5;
   border-radius: 50%;
-  background: #8fd6b3; /* matches accent */
+  background: linear-gradient(135deg, #8fd6b3 60%, #5bbfa1 100%);
   color: #0B1012;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.35);
+  box-shadow: 0 10px 24px 0 rgba(143,214,179,0.18), 0 2px 8px 0 rgba(0,0,0,0.18);
   opacity: 0;
   visibility: hidden;
   transform: translateY(12px) scale(0.96);
-  transition: opacity .25s ease, transform .25s ease, visibility .25s ease, background .2s ease;
+  transition: 
+    opacity .25s ease, 
+    transform .25s cubic-bezier(.4,2,.6,1), 
+    visibility .25s ease, 
+    background .2s, 
+    box-shadow .2s;
   z-index: 1000;
+  outline: none;
 }
 
 .back-to-top.show {
@@ -180,14 +186,25 @@ button, .back-to-top {
   transform: translateY(0) scale(1);
 }
 
-.back-to-top:hover {
-  background: #a6e3c9;
-  transform: translateY(-2px) scale(1.02);
+.back-to-top:hover,
+.back-to-top:focus {
+  background: linear-gradient(135deg, #a6e3c9 60%, #8fd6b3 100%);
+  box-shadow: 0 0 0 4px #8fd6b3a0, 0 10px 32px 0 rgba(143,214,179,0.25);
+  border-color: #a6e3c9;
 }
 
 .back-to-top__icon {
-  font-size: 22px;
+  font-size: 2rem;
   line-height: 1;
+  transition: transform 0.25s cubic-bezier(.4,2,.6,1), color 0.2s;
+  color: #0B1012;
+}
+
+.back-to-top:hover .back-to-top__icon,
+.back-to-top:focus .back-to-top__icon {
+  transform: translateY(-4px) scale(1.15) rotate(-10deg);
+  color: #2d4739;
+  text-shadow: 0 2px 12px #a6e3c9;
 }
 
 /* Slightly smaller on mobile */
@@ -195,10 +212,57 @@ button, .back-to-top {
   .back-to-top {
     right: 16px;
     bottom: 16px;
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
   }
   .back-to-top__icon {
-    font-size: 20px;
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .intro {
+    padding: 2.5rem 1rem;
+  }
+  .intro-greeting {
+    font-size: 2.5rem;
+  }
+  .highlight {
+    font-size: 3.5rem;
+  }
+  .intro-role {
+    font-size: 1.1rem;
+  }
+  .tech {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@media (max-width: 600px) {
+  .intro {
+    padding: 1.5rem 0.5rem;
+  }
+  .intro-greeting {
+    font-size: 1.5rem;
+  }
+  .highlight {
+    font-size: 2rem;
+  }
+  .intro-role {
+    font-size: 0.95rem;
+    margin-top: 1.2rem;
+  }
+  .tech-stack {
+    gap: 0.5rem;
+    padding: 0.5rem 0.5rem;
+  }
+  .tech {
+    width: 24px;
+    height: 24px;
+  }
+  .typewriter-text,
+  .typewriter-text span {
+    font-size: 0.85rem !important;
   }
 }
