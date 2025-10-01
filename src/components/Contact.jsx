@@ -7,7 +7,7 @@ export default function Contact() {
       <div className="contact-center">
         <header className="contact-hero" role="banner">
           {/* Added big green "Let's connect" */}
-          <div className="contact-connect-big">Let’s connect</div>
+          <div className="contact-connect-big" aria-hidden="true">Let’s connect</div>
           <h1 id="contact-title" className="contact-title">
             <span>Let’s connect</span>
           </h1>

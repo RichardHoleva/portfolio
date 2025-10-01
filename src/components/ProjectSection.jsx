@@ -7,223 +7,271 @@ import bench from "../assets/banchscape.png";
 import spilcafen from "../assets/spilcafen.png";
 
 const projectData = [
-	{
-		title: "CryptoCoach-AI",
-		description:
-			"In this project I combined two of my biggest interests, AI and crypto. I was curious how real chatbots are built, so I coded CryptoCoach AI, a simple assistant that answers basic questions about crypto and memecoins. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
-		image: macBookAirCC,
-		githubLink: "https://github.com/RichardHoleva/ai-crypto-coach.git",
-		demoLink: "https://richardholeva.github.io/ai-crypto-coach",
-	},
-
-	{
-		title: "Dish-Delights",
-		description:
-			"24-Hour Exam Project – Built a responsive CRUD recipe website using HTML, CSS, and JavaScript. Users can create, edit, and delete recipes. Focused on matching my design, ensuring responsiveness, and submitting on time. Completed both the project and a written report. Intense but rewarding challenge that tested my coding and time-management skills.",
-		image: iphonedd,
-		githubLink: "https://github.com/RichardHoleva/exam.git",
-		demoLink: "https://richardholeva.github.io/exam/",
-	},
-
-	{
-		title: "BenchScape",
-		description:
-			"My first school exam project using HTML, CSS, and JavaScript. I built a website that reveals hidden benches around Aarhus where people can enjoy sunsets. As someone who loves sunsets, I wanted to create something personal while also helping others find quiet places to relax and unwind. It was a challenging project that pushed my coding skills, but in the end, I was proud to make it work.",
-		image: bench,
-		githubLink: "https://github.com/RichardHoleva/programovanie.git",
-		demoLink: "https://richardholeva.github.io/programovanie",
-	},
-
-{
-  title: "SpilCafeen",
-  description:
-    "Team project focused on designing and developing a website. I was responsible for the coding part, creating an admin page where staff could update the site with new board games. Learned how databases work in Firebase and gained hands-on experience implementing Firebase into projects.<br /><br />Email: aspilcafen@gmail.com<br />Password: admin123",
-  image: spilcafen,
-  githubLink: "https://github.com/RichardHoleva/admin.git",
-  demoLink: "https://richardholeva.github.io/admin",
-},
-
-
-
+  {
+    title: "CryptoCoach-AI",
+    description:
+      "In this project I combined two of my biggest interests, AI and crypto. I was curious how real chatbots are built, so I coded CryptoCoach AI, a simple assistant that answers basic questions about crypto and memecoins. Along the way I learned a lot about APIs, connected a React frontend to a Node and Express backend, and got my first real taste of backend work which was challenging but also rewarding. There is still plenty to improve, but this marks the start of my journey.",
+    image: macBookAirCC,
+    githubLink: "https://github.com/RichardHoleva/ai-crypto-coach.git",
+    demoLink: "https://richardholeva.github.io/ai-crypto-coach",
+  },
+  {
+    title: "Dish-Delights",
+    description:
+      "24-Hour Exam Project – Built a responsive CRUD recipe website using HTML, CSS, and JavaScript. Users can create, edit, and delete recipes. Focused on matching my design, ensuring responsiveness, and submitting on time. Completed both the project and a written report. Intense but rewarding challenge that tested my coding and time-management skills.",
+    image: iphonedd,
+    githubLink: "https://github.com/RichardHoleva/exam.git",
+    demoLink: "https://richardholeva.github.io/exam/",
+  },
+  {
+    title: "BenchScape",
+    description:
+      "My first school exam project using HTML, CSS, and JavaScript. I built a website that reveals hidden benches around Aarhus where people can enjoy sunsets. As someone who loves sunsets, I wanted to create something personal while also helping others find quiet places to relax and unwind. It was a challenging project that pushed my coding skills, but in the end, I was proud to make it work.",
+    image: bench,
+    githubLink: "https://github.com/RichardHoleva/programovanie.git",
+    demoLink: "https://richardholeva.github.io/programovanie",
+  },
+  {
+    title: "SpilCafeen",
+    description:
+      "Team project focused on designing and developing a website. I was responsible for the coding part, creating an admin page where staff could update the site with new board games. Learned how databases work in Firebase and gained hands-on experience implementing Firebase into projects.<br /><br />Email: aspilcafen@gmail.com<br />Password: admin123",
+    image: spilcafen,
+    githubLink: "https://github.com/RichardHoleva/admin.git",
+    demoLink: "https://richardholeva.github.io/admin",
+  },
 ];
 
 function ProjectsSection() {
   const sectionRef = useRef(null);
   const trackRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isScrolling, setIsScrolling] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const [hasEntered, setHasEntered] = useState(false);
-  const totalProjects = projectData.length;
 
+  const total = projectData.length;
+
+  // Keep a stable “viewport unit” height on mobile (address bar shrink)
+  useEffect(() => {
+    const setVH = () => {
+      const h =
+        window.visualViewport?.height ||
+        document.documentElement.clientHeight ||
+        window.innerHeight;
+      document.documentElement.style.setProperty("--svh", `${h}px`);
+    };
+    setVH();
+    window.addEventListener("resize", setVH);
+    window.addEventListener("orientationchange", setVH);
+    return () => {
+      window.removeEventListener("resize", setVH);
+      window.removeEventListener("orientationchange", setVH);
+    };
+  }, []);
+
+  // Set dynamic wrapper height based on number of slides
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const setHeight = () => {
+      const h =
+        window.visualViewport?.height ||
+        document.documentElement.clientHeight ||
+        window.innerHeight;
+      el.style.height = `${h * total}px`;
+    };
+    setHeight();
+    window.addEventListener("resize", setHeight);
+    return () => window.removeEventListener("resize", setHeight);
+  }, [total]);
+
+  // Calculates the pixel width of one slide (use the sticky container, not window)
+  const slideWidth = () =>
+    trackRef.current?.parentElement?.getBoundingClientRect().width ||
+    window.innerWidth;
+
+  // Snap to a given index
+  const goTo = (index) => {
+    if (isAnimating) return;
+    const sectionEl = sectionRef.current;
+    const trackEl = trackRef.current;
+    if (!sectionEl || !trackEl) return;
+
+    const i = Math.max(0, Math.min(index, total - 1));
+    const vh =
+      window.visualViewport?.height ||
+      document.documentElement.clientHeight ||
+      window.innerHeight;
+
+    setIsAnimating(true);
+    // Respect prefers-reduced-motion
+    const smooth =
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
+
+    window.scrollTo({
+      top: sectionEl.offsetTop + i * vh,
+      behavior: smooth ? "smooth" : "auto",
+    });
+
+    setActiveIndex(i);
+
+    // Hardware-accelerated translate, based on container width (prevents 100vw overflow issues)
+    requestAnimationFrame(() => {
+      trackEl.style.transform = `translate3d(${-i * slideWidth()}px,0,0)`;
+    });
+
+    // Match CSS transition duration (900ms) with a tiny buffer
+    window.setTimeout(() => setIsAnimating(false), 950);
+  };
+
+  // Scroll + visibility hooks
   useEffect(() => {
     const sectionEl = sectionRef.current;
     const trackEl = trackRef.current;
     if (!sectionEl || !trackEl) return;
 
-    function setDynamicHeight() {
-      // Set section height to accommodate all projects
-      const sectionHeight = window.innerHeight * totalProjects;
-      sectionEl.style.height = `${sectionHeight}px`;
-      return { sectionHeight };
-    }
+    const inViewport = () => {
+      const r = sectionEl.getBoundingClientRect();
+      const h =
+        window.visualViewport?.height ||
+        document.documentElement.clientHeight ||
+        window.innerHeight;
+      return r.top <= h / 2 && r.bottom >= h / 2;
+    };
 
-    let dims = setDynamicHeight();
+    const onScroll = () => {
+      if (!hasEntered || isAnimating) return;
+      const vh =
+        window.visualViewport?.height ||
+        document.documentElement.clientHeight ||
+        window.innerHeight;
+      const rel = window.scrollY - sectionEl.offsetTop;
+      const idx = Math.max(0, Math.min(Math.round(rel / vh), total - 1));
+      if (idx !== activeIndex) {
+        trackEl.style.transform = `translate3d(${-idx * slideWidth()}px,0,0)`;
+        setActiveIndex(idx);
+      }
+    };
 
-    function scrollToProject(index) {
-      if (isScrolling) return;
-      
-      const targetIndex = Math.max(0, Math.min(index, totalProjects - 1));
-      const targetScroll = sectionEl.offsetTop + (targetIndex * window.innerHeight);
-      
-      setIsScrolling(true);
-      
-      // Scroll to the corresponding vertical position
-      window.scrollTo({
-        top: targetScroll,
-        behavior: 'smooth'
-      });
-      
-      // Update the active index
-      setActiveIndex(targetIndex);
-      
-      // Add a small delay before starting transform to sync better with scroll
-      requestAnimationFrame(() => {
-        // Apply the transform with hardware acceleration
-        trackEl.style.transform = `translate3d(${-targetIndex * window.innerWidth}px,0,0)`;
-      });
-      
-      // Reset scrolling flag after animation completes (match to CSS duration)
-      setTimeout(() => setIsScrolling(false), 900);
-    }
-
-    function isInViewport() {
-      const rect = sectionEl.getBoundingClientRect();
-      return rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2;
-    }
-
-    function handleScroll() {
-      if (isScrolling) return;
-      
-      // Check if we've just entered the section
-      const inViewport = isInViewport();
-      
-      // If we just entered the section, reset to the first project
-      if (inViewport && !hasEntered) {
+    const onEnterCheck = () => {
+      const inside = inViewport();
+      if (inside && !hasEntered) {
         setHasEntered(true);
         trackEl.style.transform = `translate3d(0,0,0)`;
         setActiveIndex(0);
-        return;
-      }
-      
-      // Only handle internal section scrolling if we're already in the section
-      if (hasEntered) {
-        // Calculate scroll position relative to the section
-        const scrollPosition = window.scrollY - sectionEl.offsetTop;
-        const newIndex = Math.max(0, Math.min(
-          Math.round(scrollPosition / window.innerHeight),
-          totalProjects - 1
-        ));
-        
-        if (newIndex !== activeIndex) {
-          trackEl.style.transform = `translate3d(${-newIndex * window.innerWidth}px,0,0)`;
-          setActiveIndex(newIndex);
-        }
-      }
-    }
-
-    function handleWheel(e) {
-      // Only handle wheel events if we're in the section
-      if (!isInViewport() || isScrolling) return;
-      
-      e.preventDefault();
-      
-      // Determine scroll direction
-      const direction = e.deltaY > 0 ? 1 : -1;
-      scrollToProject(activeIndex + direction);
-    }
-
-    function onResize() {
-      dims = setDynamicHeight();
-      // Re-adjust to maintain correct position
-      if (hasEntered) {
-        trackEl.style.transform = `translate3d(${-activeIndex * window.innerWidth}px,0,0)`;
-      }
-    }
-
-    // Reset when leaving the section
-    function checkVisibility() {
-      if (!isInViewport() && hasEntered) {
+      } else if (!inside && hasEntered) {
         setHasEntered(false);
       }
-    }
+    };
 
-    // Handle wheel events for snap scrolling
-    sectionEl.addEventListener("wheel", handleWheel, { passive: false });
-    
-    // Handle regular scroll events
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("scroll", checkVisibility, { passive: true });
-    window.addEventListener("resize", onResize);
+    // Mouse wheel snap (desktop)
+    const onWheel = (e) => {
+      if (!inViewport() || isAnimating) return;
+      e.preventDefault();
+      const dir = e.deltaY > 0 ? 1 : -1;
+      goTo(activeIndex + dir);
+    };
 
-    // Initial position check
-    handleScroll();
+    // Touch swipe (mobile/tablet)
+    let startX = 0;
+    let startY = 0;
+    let moved = false;
+
+    const onTouchStart = (e) => {
+      if (!inViewport()) return;
+      const t = e.touches[0];
+      startX = t.clientX;
+      startY = t.clientY;
+      moved = false;
+    };
+
+    const onTouchMove = (e) => {
+      if (!inViewport()) return;
+      const t = e.touches[0];
+      const dx = t.clientX - startX;
+      const dy = t.clientY - startY;
+      // Horizontal swipe threshold, ignore vertical scroll
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+        moved = true;
+      }
+    };
+
+    const onTouchEnd = (e) => {
+      if (!inViewport() || !moved) return;
+      const changed = e.changedTouches[0];
+      const dx = changed.clientX - startX;
+      const dir = dx < 0 ? 1 : -1;
+      goTo(activeIndex + dir);
+    };
+
+    // Keyboard (accessibility)
+    const onKeyDown = (e) => {
+      if (!inViewport()) return;
+      if (e.key === "ArrowRight" || e.key === "PageDown") {
+        e.preventDefault();
+        goTo(activeIndex + 1);
+      } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+        e.preventDefault();
+        goTo(activeIndex - 1);
+      }
+    };
+
+    sectionEl.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("scroll", onEnterCheck, { passive: true });
+    sectionEl.addEventListener("touchstart", onTouchStart, { passive: true });
+    sectionEl.addEventListener("touchmove", onTouchMove, { passive: true });
+    sectionEl.addEventListener("touchend", onTouchEnd, { passive: true });
+    window.addEventListener("keydown", onKeyDown);
+
+    onEnterCheck(); // initial
+
+    // Keep translate in sync if the container width changes
+    const ro = new ResizeObserver(() => {
+      trackEl.style.transform = `translate3d(${-activeIndex * slideWidth()}px,0,0)`;
+    });
+    ro.observe(trackEl.parentElement);
 
     return () => {
-      sectionEl.removeEventListener("wheel", handleWheel);
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("scroll", checkVisibility);
-      window.removeEventListener("resize", onResize);
+      sectionEl.removeEventListener("wheel", onWheel);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("scroll", onEnterCheck);
+      sectionEl.removeEventListener("touchstart", onTouchStart);
+      sectionEl.removeEventListener("touchmove", onTouchMove);
+      sectionEl.removeEventListener("touchend", onTouchEnd);
+      window.removeEventListener("keydown", onKeyDown);
+      ro.disconnect();
     };
-  }, [activeIndex, isScrolling, hasEntered, totalProjects]);
-
-  // Function to handle navigation bubble clicks
-  function navigateToProject(index) {
-    const sectionEl = sectionRef.current;
-    const trackEl = trackRef.current;
-    if (!sectionEl || !trackEl || isScrolling) return;
-    
-    const targetIndex = Math.max(0, Math.min(index, totalProjects - 1));
-    const targetScroll = sectionEl.offsetTop + (targetIndex * window.innerHeight);
-    
-    setIsScrolling(true);
-    
-    // Scroll to the corresponding vertical position
-    window.scrollTo({
-      top: targetScroll,
-      behavior: 'smooth'
-    });
-    
-    // Update the active index
-    setActiveIndex(targetIndex);
-    
-    // Add a small delay before starting transform
-    requestAnimationFrame(() => {
-      trackEl.style.transform = `translate3d(${-targetIndex * window.innerWidth}px,0,0)`;
-    });
-    
-    // Reset scrolling flag after animation completes
-    setTimeout(() => setIsScrolling(false), 900);
-  }
+  }, [activeIndex, isAnimating, hasEntered, total]);
 
   return (
-    <section ref={sectionRef} className="projects-section" id="projects">
+    <section ref={sectionRef} className="projects-section" id="projects" aria-label="Projects">
       <div className="projects-sticky">
-        <div ref={trackRef} className="projects-track">
+        <div ref={trackRef} className="projects-track" role="list">
           {projectData.map((proj, i) => (
-            <section key={i} className="project">
+            <section
+              key={i}
+              className="project"
+              role="listitem"
+              aria-roledescription="slide"
+              aria-label={`${proj.title} (${i + 1} of ${total})`}
+            >
               <ProjectCard {...proj} />
             </section>
           ))}
         </div>
-        
+
         {/* Navigation Bubbles */}
-        <div className="project-nav-bubbles">
+        <div className="project-nav-bubbles" role="tablist" aria-label="Project navigation">
           {projectData.map((_, i) => (
             <button
               key={i}
-              className={`nav-bubble ${i === activeIndex ? 'active' : ''}`}
-              onClick={() => navigateToProject(i)}
-              aria-label={`Navigate to project ${i + 1}`}
+              className={`nav-bubble ${i === activeIndex ? "active" : ""}`}
+              onClick={() => goTo(i)}
+              role="tab"
+              aria-selected={i === activeIndex}
+              aria-controls={`project-slide-${i}`}
+              aria-label={`Go to project ${i + 1}`}
             />
           ))}
         </div>

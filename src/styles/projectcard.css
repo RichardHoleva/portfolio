@@ -1,60 +1,60 @@
 .project-card {
   display: flex;
   align-items: center;
-  justify-content: center;           /* center content in the full-screen card */
+  justify-content: center;
   background: #151515;
   border-radius: 16px;
-  padding: clamp(0.2rem, 3vw, 5.5rem);
-  margin: 0;                         /* fill the viewport wrapper */
+  padding: clamp(1rem, 3vw, 5.5rem);
+  margin: 0;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   position: relative;
   width: 100%;
-  /* reserve vertical room so the bubble doesn't cover content */
-  --bubble-size: 160px;
-  --bubble-offset: clamp(12px, 2.5vw, 24px);      /* move bubble lower */
-  --bubble-extra-gap: clamp(25px, 0.4vw, 8px);   /* small spacing under bubble */
-  /* remove large reserved top space */
-  /* padding-top: calc(var(--bubble-size) + var(--bubble-offset) + var(--bubble-extra-gap)); */
-  font-family: 'Segoe UI', 'Fira Sans', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Droid Sans', 'Helvetica Neue', Arial, sans-serif;
-  font-size: 1.08rem;
+  --bubble-size: clamp(100px, 20vw, 160px);
+  --bubble-offset: clamp(8px, 2vw, 24px);
+  --bubble-extra-gap: clamp(8px, 1vw, 16px);
+  font-family: "Segoe UI", "Fira Sans", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(0.9rem, 1.5vw, 1.08rem);
   font-weight: 400;
   letter-spacing: 0.01em;
+  min-height: clamp(420px, 80svh, 640px); /* use svh to stabilize on mobile */
+  box-sizing: border-box;
 }
 
 .project-image img {
-  width: 500px;
-  height: 500px;
+  width: clamp(280px, 45vw, 500px);
+  height: clamp(280px, 45vw, 500px);
   border-radius: 12px;
   object-fit: cover;
+  max-width: 100%;
 }
 
 .project-content {
   flex: 1;
-  margin-left: clamp(2rem, 3vw, 3rem);
+  margin-left: clamp(1rem, 3vw, 3rem);
   position: relative;
-  /* removed padding-right so only overlapping lines wrap */
-  /* padding-right: 160px; */
   margin-top: var(--bubble-extra-gap);
+  max-width: calc(100% - var(--bubble-size) - var(--bubble-offset));
 }
 
 .project-title {
-  color: #9be3c0; /* mint green */
-  font-size: clamp(2.25rem, 3.5vw, 3.25rem);
+  color: #9be3c0;
+  font-size: clamp(1.5rem, 4vw, 3.25rem);
   font-weight: 700;
   letter-spacing: 0.02em;
-  margin-bottom: 2.5rem;
-  /* clear: right;  no floats anymore */
+  margin-bottom: clamp(1rem, 3vw, 2.5rem);
+  line-height: 1.2;
 }
 
 .project-description {
   color: #e0e0e0;
-  font-size: clamp(1.125rem, 1.2vw, 1.4rem);
-  line-height: 1.75;
-  margin-bottom: 2.5rem;
+  font-size: clamp(0.95rem, 1.8vw, 1.4rem);
+  line-height: 1.6;
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
   white-space: normal;
   word-break: normal;
-  overflow-wrap: normal;
-  hyphens: none;
+  overflow-wrap: break-word;
+  hyphens: auto;
   font-weight: 400;
   letter-spacing: 0.01em;
 }
@@ -62,16 +62,16 @@
 .project-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px; 
+  gap: clamp(8px, 1.5vw, 12px);
   font-weight: 700;
 }
 
 .project-links a {
- display: inline-flex;
+  display: inline-flex;
   align-items: center;
-  padding: 10px 14px;
-  border-radius: 12px;
-  font-size: 15px;
+  padding: clamp(8px, 1.5vw, 12px) clamp(10px, 2vw, 16px);
+  border-radius: 8px;
+  font-size: clamp(0.8rem, 1.8vw, 1rem);
   color: #e6efec;
   background: rgba(156, 203, 191, 0.08);
   border: 1px solid rgba(156, 203, 191, 0.35);
@@ -83,16 +83,16 @@
 }
 
 .project-links a:hover {
-  transform: translateY(-8px);
-  background: rgba(156, 203, 191, 0.14);
-  border-color: rgba(156, 203, 191, 0.55);
+  transform: translateY(-1px);
+  background: rgba(156, 203, 191, 0.12);
 }
+
+/* Video bubble */
 .video-circle {
   position: absolute;
   top: var(--bubble-offset);
   right: var(--bubble-offset);
   z-index: 1;
-
   width: var(--bubble-size);
   height: var(--bubble-size);
   border-radius: 50%;
@@ -104,91 +104,118 @@
   outline: none;
 }
 
-/* The video fills the bubble and stays cropped as a circle */
 .video-circle video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
   border-radius: 50%;
-  pointer-events: none; 
+  pointer-events: none; /* allow clicks to hit the button */
 }
 
-/* Refined Play Button - smaller and simpler */
+/* Compact, centered “play” control */
 .video-circle .play-icon {
-  /* override the full-overlay style to a compact, centered control */
   position: absolute;
-  inset: auto;              /* cancels inset: 0 */
+  inset: auto;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: grid;
   place-items: center;
-
-  width: 50px ;
-  height: 50px ;
+  width: 50px;
+  height: 50px;
   border-radius: 999px;
-
   background: rgba(21, 21, 21, 0.6);
   border: 2.5px solid #9be3c041;
   color: #9be3c0bf;
-
-  font-size: px;
+  font-size: 14px; /* FIX: was 'px' */
   font-weight: 700;
-
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
-
-  pointer-events: none; /* allow clicks to hit the bubble underneath */
+  pointer-events: none;
 }
+.video-circle.is-playing .play-icon { opacity: 0; }
 
-/* Hide while playing, keep transitions smooth */
-.video-circle.is-playing .play-icon {
-  opacity: 0;
-}
-
-/* Fallback: draw a play triangle if no icon/text is provided */
+/* Fallback triangle */
 .video-circle .play-icon:empty::before {
   content: "";
   display: block;
   width: 0; height: 0;
-  margin-left: 2px; /* optical centering */
+  margin-left: 2px;
   border-left: 0.60em solid currentColor;
   border-top: 0.38em solid transparent;
   border-bottom: 0.38em solid transparent;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* Mobile-first */
+@media (max-width: 480px) {
   .project-card {
     flex-direction: column;
     text-align: center;
-    /* smaller bubble on mobile and synced spacing */
-    --bubble-size: 120px;
-    --bubble-offset: clamp(16px, 5vw, 40px);    /* keep it lower on mobile too */
-    --bubble-extra-gap: clamp(4px, 1vw, 10px);
-  }
-
-  .project-image img {
+    padding: clamp(0.8rem, 4vw, 1.5rem);
+    --bubble-size: 80px;
+    --bubble-offset: 12px;
+    --bubble-extra-gap: 8px;
+    min-height: 90svh;
     width: 100%;
-    max-width: 600px;
+    max-width: 100%;
+  }
+  .project-image img {
+    width: clamp(220px, 70vw, 300px);
+    height: clamp(220px, 70vw, 300px);
+    margin-bottom: 1rem;
+  }
+  .project-content {
+    margin-left: 0;
+    max-width: 100%;
+    padding: 0 0.5rem;
+  }
+  .project-title {
+    font-size: clamp(1.3rem, 6vw, 2rem);
+    margin-bottom: 1rem;
+  }
+  .project-description {
+    font-size: clamp(0.85rem, 3.5vw, 1.1rem);
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+  }
+  .project-links a {
+    padding: 8px 12px;
+    font-size: clamp(0.75rem, 3vw, 0.9rem);
+  }
+  .video-circle .play-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 10px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .project-card {
+    flex-direction: column;
+    text-align: center;
+    --bubble-size: 100px;
+    --bubble-offset: 16px;
+    --bubble-extra-gap: 12px;
+    width: 100%;
+    max-width: 100%;
+  }
+  .project-image img {
+    width: clamp(300px, 60vw, 400px);
+    height: clamp(300px, 60vw, 400px);
     margin-bottom: 1.5rem;
   }
+  .project-content { margin-left: 0; max-width: 100%; }
+  .video-circle .play-icon { width: 35px; height: 35px; font-size: 12px; }
+}
 
-  .project-content {
-    /* keep spacing readable on mobile */
-    margin-left: 0;
+@media (min-width: 769px) and (max-width: 1024px) {
+  .project-card {
+    --bubble-size: 130px;
+    padding: clamp(2rem, 4vw, 3rem);
   }
-
-  /* bubble stays top-right on mobile as well */
-  .video-circle {
-    top: var(--bubble-offset);
-    right: var(--bubble-offset);
-    /* float/margins remain unused */
+  .project-image img {
+    width: clamp(350px, 40vw, 450px);
+    height: clamp(350px, 40vw, 450px);
   }
-
-  .video-circle .play-icon {
-    width: clamp(22px, 6vw, 30px);
-    height: clamp(22px, 6vw, 30px);
-    font-size: clamp(8px, 1.4vw, 12px);
-  }
+  .project-content { margin-left: 2rem; }
 }
