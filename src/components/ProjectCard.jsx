@@ -1,19 +1,56 @@
 import "../styles/projectcard.css";
-import skuska from "../assets/skuska_a.mp4";
-import { useRef, useState, useEffect } from "react";
+import skuska from "../assets/skuska.mp4";
+import { useRef, useState, useEffect, useCallback } from "react";
 
 function ProjectCard({ title, description, image, githubLink, demoLink }) {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const [canPlaySound, setCanPlaySound] = useState(false); // tracks first user interaction
+
+  const playVideo = useCallback(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.play().catch(() => {});
+  }, []);
+
+  const pauseVideo = useCallback(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.pause();
+  }, []);
 
   const togglePlay = () => {
     const v = videoRef.current;
     if (!v) return;
-    if (v.paused) v.play();
-    else v.pause();
+
+    // On first intentional user action allow sound (if user already toggled mute manually, respect it)
+    if (!canPlaySound) {
+      setCanPlaySound(true);
+      if (isMuted) {
+        setIsMuted(false);
+        v.muted = false;
+      }
+    }
+
+    if (v.paused) playVideo();
+    else pauseVideo();
   };
 
-  // Pause the video when the card leaves the viewport (mobile safety)
+  const toggleMute = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    const next = !isMuted;
+    setIsMuted(next);
+    v.muted = next;
+  };
+
+  // Keep internal state in sync if user uses native controls (if ever added)
+  const handlePlay = () => setIsPlaying(true);
+  const handlePause = () => setIsPlaying(false);
+  const handleEnded = () => setIsPlaying(false);
+
+  // Pause when out of view
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
@@ -29,27 +66,35 @@ function ProjectCard({ title, description, image, githubLink, demoLink }) {
     return () => io.disconnect();
   }, []);
 
+  // Ensure muted attribute reflects state (React sometimes lags if changed after load)
+  useEffect(() => {
+    const v = videoRef.current;
+    if (v) v.muted = isMuted;
+  }, [isMuted]);
+
   return (
     <div className="project-card">
-      {/* Video bubble pinned to the card's top-right corner */}
-      <button
-        type="button"
-        className={`video-circle ${isPlaying ? "is-playing" : ""}`}
-        onClick={togglePlay}
-        aria-label={isPlaying ? "Pause video" : "Play video"}
-      >
-        <video
-          ref={videoRef}
-          src={skuska}
-          preload="metadata"
-          playsInline
-          muted
-          onPlay={() => setIsPlaying(true)}
-          onPause={() => setIsPlaying(false)}
-          onEnded={() => setIsPlaying(false)}
-        />
-        <span className="play-icon" aria-hidden="true" />
-      </button>
+      <div className="video-wrapper">
+        <button
+          type="button"
+            className={`video-circle ${isPlaying ? "is-playing" : ""}`}
+          onClick={togglePlay}
+          aria-label={isPlaying ? "Pause video" : "Play video"}
+        >
+          <video
+            ref={videoRef}
+            src={skuska}
+            preload="metadata"
+            playsInline
+            muted={isMuted}
+            onPlay={handlePlay}
+            onPause={handlePause}
+            onEnded={handleEnded}
+          />
+          <span className="play-icon" aria-hidden="true" />
+        </button>
+
+      </div>
 
       <div className="project-image">
         <img src={image} alt={title} />
@@ -60,7 +105,6 @@ function ProjectCard({ title, description, image, githubLink, demoLink }) {
 
         <p
           className="project-description"
-          // you’re intentionally passing markup for line breaks in one item
           dangerouslySetInnerHTML={{ __html: description }}
         />
 

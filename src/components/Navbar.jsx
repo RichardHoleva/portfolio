@@ -68,6 +68,7 @@ function Navbar() {
   const [progress, setProgress] = useState(0);
   const rafRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [overlayClosing, setOverlayClosing] = useState(false);
 
   useEffect(() => {
     const calcProgress = () => {
@@ -98,10 +99,29 @@ function Navbar() {
     };
   }, []);
 
+  const closeMenu = () => {
+    setOverlayClosing(true);
+    setTimeout(() => {
+      setMenuOpen(false);
+      setOverlayClosing(false);
+    }, 300);
+  };
+
+  const toggleMenu = () => {
+    if (menuOpen) {
+      closeMenu();
+    } else {
+      setMenuOpen(true);
+    }
+  };
+
   // Close menu on resize to desktop
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth > 680 && menuOpen) setMenuOpen(false);
+      if (window.innerWidth > 680 && menuOpen) {
+        setMenuOpen(false);
+        setOverlayClosing(false);
+      }
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -137,7 +157,7 @@ function Navbar() {
         aria-label={menuOpen ? "Close menu" : "Open menu"}
         aria-expanded={menuOpen}
         aria-controls="nav-links"
-        onClick={() => setMenuOpen((v) => !v)}
+        onClick={toggleMenu}
       >
         <span className="burger-bar" />
         <span className="burger-bar" />
@@ -150,7 +170,7 @@ function Navbar() {
         id="nav-links"
         role="menu"
         aria-hidden={!menuOpen && window.innerWidth <= 680}
-        onClick={() => { if (menuOpen) setMenuOpen(false); }}
+        onClick={() => { if (menuOpen) closeMenu(); }}
       >
         <li>
           <a href="#about" aria-label="About" role="menuitem">
@@ -180,7 +200,12 @@ function Navbar() {
         </li>
       </ul>
       {/* Mobile menu overlay */}
-      {menuOpen && <div className="nav-overlay" onClick={() => setMenuOpen(false)} />}
+      {(menuOpen || overlayClosing) && (
+        <div 
+          className={`nav-overlay${overlayClosing ? ' closing' : ''}`} 
+          onClick={closeMenu} 
+        />
+      )}
     </nav>
   );
 }

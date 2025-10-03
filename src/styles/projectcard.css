@@ -11,10 +11,10 @@
   width: 100%;
   --bubble-size: clamp(100px, 20vw, 160px);
   --bubble-offset: clamp(8px, 2vw, 24px);
-  --bubble-extra-gap: clamp(8px, 1vw, 16px);
+  --bubble-extra-gap: clamp(12px, 2vw, 28px);
   font-family: "Segoe UI", "Fira Sans", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
     "Droid Sans", "Helvetica Neue", Arial, sans-serif;
-  font-size: clamp(0.9rem, 1.5vw, 1.08rem);
+  font-size: 2rem;
   font-weight: 400;
   letter-spacing: 0.01em;
   min-height: clamp(420px, 80svh, 640px); /* use svh to stabilize on mobile */
@@ -39,7 +39,7 @@
 
 .project-title {
   color: #9be3c0;
-  font-size: clamp(1.5rem, 4vw, 3.25rem);
+  font-size: 3rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   margin-bottom: clamp(1rem, 3vw, 2.5rem);

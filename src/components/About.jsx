@@ -275,11 +275,11 @@ const About = () => {
           <p className="about__lead hover-fill" data-hover-fill>
             I’m Richard, 21. I build <span className="accent">clean</span>,{" "}
             <span className="accent">intuitive</span>, and{" "}
-            <span className="accent">fast</span> web experiences—with UX, UI, and craft at the center.
+            <span className="accent">fast</span> web experiences with UX, UI, and craft at the center.
           </p>
 
           <p className="about__lead hover-fill" data-hover-fill>
-            I care about details that make interfaces feel alive—<span className="mark">thoughtful interactions</span>, accessible patterns, and honest performance.
+            I care about details that make interfaces feel alive<span className="mark">thoughtful interactions</span>, accessible patterns, and honest performance.
           </p>
 
           <p className="about__lead hover-fill" data-hover-fill>

@@ -154,22 +154,21 @@
   width: 26px;
   height: 3px;
   background: #fff;
-  margin: 4px 0;
+  margin: 3px 0;
   border-radius: 2px;
-  transition: all 0.25s cubic-bezier(.4,2,.6,1);
+  transition: all 0.3s ease-in-out;
   display: block;
-  /* Add transform-origin for better X shape */
   transform-origin: center;
 }
 .burger.open .burger-bar:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
+  transform: rotate(45deg) translate(6px, 6px);
 }
 .burger.open .burger-bar:nth-child(2) {
   opacity: 0;
-  transform: scaleX(0.7);
+  transform: scaleX(0);
 }
 .burger.open .burger-bar:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
+  transform: rotate(-45deg) translate(6px, -6px);
 }
 
 /* Overlay for mobile menu */
@@ -178,11 +177,18 @@
   top: 0; left: 0; right: 0; bottom: 0;
   background: rgba(0,0,0,0.35);
   z-index: 110;
-  animation: fadeIn 0.2s;
+  animation: fadeIn 0.3s ease-out;
+}
+.nav-overlay.closing {
+  animation: fadeOut 0.3s ease-out;
 }
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
 /* Mobile nav menu */
@@ -204,7 +210,7 @@
     margin: 0;
     margin-left: 0;
     transform: translateX(100%);
-    transition: transform 0.23s cubic-bezier(.4,2,.6,1);
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     z-index: 130;
     opacity: 1;
     pointer-events: none;
