@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import '../styles/navbar.css';
 import logo from '../assets/logo.png';
+import { Link } from 'react-router-dom'; // <-- added
 
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
@@ -188,15 +189,13 @@ function Navbar() {
           </a>
         </li>
         <li>
-          <a
-            href="/resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            to="/experiences"
             aria-label="Experiences"
             role="menuitem"
           >
             <DecodeText text="Experiences" />
-          </a>
+          </Link>
         </li>
       </ul>
       {/* Mobile menu overlay */}
