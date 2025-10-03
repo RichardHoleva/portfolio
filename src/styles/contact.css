@@ -86,48 +86,43 @@ body {
   justify-content: center;
 }
 
+/* Make buttons 1:1 with project-card links */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 14px;
-  border-radius: 12px;
-  font-size: 15px;
+  padding: clamp(8px, 1.5vw, 12px) clamp(10px, 2vw, 16px);
+  border-radius: 8px;
+  font-size: clamp(0.8rem, 1.8vw, 1rem);
   color: #e6efec;
-  background: rgba(156, 203, 191, 0.14);
+  background: rgba(156, 203, 191, 0.08);
   border: 1px solid rgba(156, 203, 191, 0.35);
   text-decoration: none;
+  transition: transform 120ms ease, background 160ms ease, border-color 160ms ease;
   font-family: inherit;
   font-weight: 600;
   letter-spacing: 0.02em;
   cursor: pointer;
 }
-
-/* Distinct primary button style for contact */
-.btn-primary {
-  background: rgba(156, 203, 191, 0.14);
-  color: #e6efec;
-  border-color: rgba(156, 203, 191, 0.55);
-  border: 1px solid rgba(156, 203, 191, 0.35);
-  box-shadow: 0 2px 8px rgba(143, 214, 179, 0.08);
+.btn:hover {
+  transform: translateY(-1px);
+  background: rgba(156, 203, 191, 0.12);
+  text-decoration: none;
 }
 
-.btn-primary:hover {
-  border-color: #a6e3c9;
-}
-
-/* Distinct ghost button style for contact */
+/* Keep aliases identical to .btn */
+.btn-primary,
 .btn-ghost {
-  background: rgba(156, 203, 191, 0.14);
-  border-color: rgba(156, 203, 191, 0.55);
+  background: rgba(156, 203, 191, 0.08);
   color: #e6efec;
   border: 1px solid rgba(156, 203, 191, 0.35);
-  font-weight: 600;
+  box-shadow: none;
 }
-
+.btn-primary:hover,
 .btn-ghost:hover {
-  background: rgba(156, 203, 191, 0.06);
-  border-color: #8fd6b3;
+  transform: translateY(-1px);
+  background: rgba(156, 203, 191, 0.12);
+  text-decoration: none;
 }
 
 .btn-full {

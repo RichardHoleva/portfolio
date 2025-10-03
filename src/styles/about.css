@@ -123,21 +123,24 @@ html { scroll-behavior: smooth; }
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 14px;
-  border-radius: 12px;
-  font-size: 15px;
+  padding: clamp(8px, 1.5vw, 12px) clamp(10px, 2vw, 16px);
+  border-radius: 8px;
+  font-size: clamp(0.8rem, 1.8vw, 1rem);
   color: var(--text);
   background: rgba(156, 203, 191, 0.08);
   border: 1px solid rgba(156, 203, 191, 0.35);
   text-decoration: none;
   transition: transform 120ms ease, background 160ms ease, border-color 160ms ease;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 .btn:hover {
-  transform: translateY(-8px);
-  background: rgba(156, 203, 191, 0.14);
-  border-color: rgba(156, 203, 191, 0.55);
+  transform: translateY(-1px);
+  background: rgba(156, 203, 191, 0.12);
   text-decoration: none;
 }
+
+/* ...existing code... */
 
 .about__media {
   position: relative;

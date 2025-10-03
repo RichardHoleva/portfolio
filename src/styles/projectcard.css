@@ -85,6 +85,7 @@
 .project-links a:hover {
   transform: translateY(-1px);
   background: rgba(156, 203, 191, 0.12);
+  text-decoration: none;
 }
 
 /* Video bubble */
